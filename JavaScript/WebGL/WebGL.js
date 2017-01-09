@@ -20,7 +20,7 @@ WebGL.prototype.initShaders = function()
     var fragmentShader = this.getShader(this.gl.FRAGMENT_SHADER, 'shader-fs');
     var vertexShader = this.getShader(this.gl.VERTEX_SHADER, 'shader-vs');
  
-   // shaderProgram = gl.createProgram();
+    this.shaderProgram = gl.createProgram();
  
     this.gl.attachShader(this.shaderProgram, vertexShader);
     this.gl.attachShader(this.shaderProgram, fragmentShader);
@@ -66,17 +66,25 @@ WebGL.prototype.getShader = function(type,id)
     return shader;  
 };
 
-WebGL.prototype.setupWebGL = function()
+WebGL.prototype.setupWebGL = function(key, ObjCamera, PosMouseX, PosMouseY, PosMouseZ)
 {
     this.gl.viewport(0, 0, this.gl.viewportWidth, this.gl.viewportHeight);
+    
     mat4.perspective(this.pMatrix, 1.04, this.gl.viewportWidth / this.gl.viewportHeight, 0.1, 1000.0);
+    
     mat4.identity(this.mvMatrix);
-    mat4.lookAt(this.mvMatrix, [0, 10, -10], [0, 0, 0], [0,1,0]);
-    mat4.translate(this.mvMatrix,this.mvMatrix,[0, 0, 0]);
-    mat4.rotate(this.mvMatrix,this.mvMatrix, 0, [0, 1, 0]); 
+    mat4.lookAt(this.mvMatrix, [this.Obj_[ObjCamera]["x"]+ Math.sin(PosMouseX) * 25, this.Obj_[ObjCamera]["y"] + 10, this.Obj_[ObjCamera]["z"] + Math.cos(PosMouseX) * 25], [this.Obj_[ObjCamera]["x"], this.Obj_[ObjCamera]["y"], this.Obj_[ObjCamera]["z"]], [0,1,0]);
+    
+   // mat4.rotate(this.mvMatrix,this.mvMatrix, this.Obj_[key]["tx"], [1, 0, 0]); 
+   // mat4.rotate(this.mvMatrix,this.mvMatrix, this.Obj_[key]["tz"], [0, 0, 1]); 
+   // mat4.rotate(this.mvMatrix,this.mvMatrix, this.Obj_[key]["ty"], [0, 1, 0]); 
+    mat4.translate(this.mvMatrix,this.mvMatrix,[this.Obj_[key]["x"], this.Obj_[key]["y"], this.Obj_[key]["z"]]);
+    mat4.rotate(this.mvMatrix,this.mvMatrix, this.Obj_[key]["ty"], [0, 1, 0]); 
+     mat4.rotate(this.mvMatrix,this.mvMatrix, this.Obj_[key]["tx"], [1, 0, 0]); 
+    mat4.rotate(this.mvMatrix,this.mvMatrix, this.Obj_[key]["tz"], [0, 0, 1]); 
 };
 
-WebGL.prototype.initBuffers = function(i, string)
+WebGL.prototype.initBuffers = function(key, way)
 {
     
  var vertices = Array();
@@ -89,7 +97,7 @@ WebGL.prototype.initBuffers = function(i, string)
                    async: false,
                    type: "POST",
                    url: "LoadGeometry.php",
-                   data: {fname:"Vert", ffile:string},
+                   data: {fname:"Vert", ffile:way},
                    success: function(data) {
                    vertices = $.parseJSON(data);                  
                    }
@@ -97,11 +105,11 @@ WebGL.prototype.initBuffers = function(i, string)
                
                
  
-    $.ajax({
+            $.ajax({
                    async: false,
                    type: "POST",
                    url: "LoadGeometry.php",
-                   data: {fname:"Ind", ffile:string},
+                   data: {fname:"Ind", ffile:way},
                    success: function(data) {
                    indices = $.parseJSON(data);             
                    }
@@ -111,60 +119,60 @@ WebGL.prototype.initBuffers = function(i, string)
                    async: false,
                    type: "POST",
                    url: "LoadGeometry.php",
-                   data: {fname:"Text", ffile:string},
+                   data: {fname:"Text", ffile:way},
                    success: function(data) {
                    textureCoords = $.parseJSON(data);                  
                    }
                });
              
-  this.vertexBuffer[i] = this.gl.createBuffer();
-  this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.vertexBuffer[i]);
+  this.vertexBuffer[key] = this.gl.createBuffer();
+  this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.vertexBuffer[key]);
   this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(vertices), this.gl.STATIC_DRAW);
-  this.vertexBuffer[i].itemSize = 3;
+  this.vertexBuffer[key].itemSize = 3;
   
  
-    this.indexBuffer[i] = this.gl.createBuffer();
-    this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, this.indexBuffer[i]);
+    this.indexBuffer[key] = this.gl.createBuffer();
+    this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, this.indexBuffer[key]);
     this.gl.bufferData(this.gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), this.gl.STATIC_DRAW);
-    this.indexBuffer[i].numberOfItems = indices.length; 
+    this.indexBuffer[key].numberOfItems = indices.length; 
    
  
-  this.textureCoordsBuffer[i] = this.gl.createBuffer();
-  this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.textureCoordsBuffer[i]);
+  this.textureCoordsBuffer[key] = this.gl.createBuffer();
+  this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.textureCoordsBuffer[key]);
   this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(textureCoords), this.gl.STATIC_DRAW);
-  this.textureCoordsBuffer[i].itemSize=2;
+  this.textureCoordsBuffer[key].itemSize=2;
 };
 
-WebGL.prototype.draw = function(i)
+WebGL.prototype.draw = function(key)
 {
-    if(this.Obj_[i]["hide"] === true) { return; }
+    if(this.Obj_[key]["hide"] === true) { return; }
     
-    this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.vertexBuffer[this.Obj_[i]["name"]]);
+    this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.vertexBuffer[this.Obj_[key]["name"]]);
     this.gl.vertexAttribPointer(this.shaderProgram.vertexPositionAttribute, 
-                         this.vertexBuffer[this.Obj_[i]["name"]].itemSize, this.gl.FLOAT, false, 0, 0);
+                         this.vertexBuffer[this.Obj_[key]["name"]].itemSize, this.gl.FLOAT, false, 0, 0);
  
-    this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.textureCoordsBuffer[this.Obj_[i]["name"]]);
+    this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.textureCoordsBuffer[this.Obj_[key]["name"]]);
   this.gl.vertexAttribPointer(this.shaderProgram.vertexTextureAttribute,
-                         this.textureCoordsBuffer[this.Obj_[i]["name"]].itemSize, this.gl.FLOAT, false, 0, 0);
+                         this.textureCoordsBuffer[this.Obj_[key]["name"]].itemSize, this.gl.FLOAT, false, 0, 0);
   this.gl.activeTexture(this.gl.TEXTURE0);
-  this.gl.bindTexture(this.gl.TEXTURE_2D, this.texture[this.Obj_[i]["text"]]);
+  this.gl.bindTexture(this.gl.TEXTURE_2D, this.texture[this.Obj_[key]["text"]]);
     this.gl.enable(this.gl.DEPTH_TEST);
-    this.gl.drawArrays(this.gl.TRIANGLES,this.indexBuffer[this.Obj_[i]["name"]], this.indexBuffer[this.Obj_[i]["name"]].numberOfItems);
+    this.gl.drawArrays(this.gl.TRIANGLES,this.indexBuffer[this.Obj_[key]["name"]], this.indexBuffer[this.Obj_[key]["name"]].numberOfItems);
 };
-        // this.gl.clearColor(0.0, 0.7, 1.0, 1.0);this.gl.clearColor(0.0, 0.6, 0.8, 1.0);
+      
 WebGL.prototype.RenderBegin = function()
 {
      this.gl.clearColor(0.0, 0.7, 1.0, 1.0);  
     this.gl.clear(this.gl.COLOR_BUFFER_BIT || this.gl.DEPTH_BUFFER_BIT);
 };
 
-WebGL.prototype.setTextures = function(i, string)
+WebGL.prototype.setTextures = function(key, way)
 {
-    this.texture[i] = this.gl.createTexture();
-    this.gl.bindTexture(this.gl.TEXTURE_2D, this.texture[i]);
+    this.texture[key] = this.gl.createTexture();
+    this.gl.bindTexture(this.gl.TEXTURE_2D, this.texture[key]);
     var image = new Image();
       
-     var Text = this.texture[i];
+     var Text = this.texture[key];
       
      var handleTextureLoaded1 = this.handleTextureLoaded;
       
@@ -173,7 +181,7 @@ WebGL.prototype.setTextures = function(i, string)
         handleTextureLoaded1(image, Text);
   };
   
-   image.src = string;
+   image.src = way;
   
     this.shaderProgram.samplerUniform = this.gl.getUniformLocation(this.shaderProgram, "uSampler");
     this.gl.uniform1i(this.shaderProgram.samplerUniform, 0);
@@ -192,43 +200,42 @@ WebGL.prototype.handleTextureLoaded = function(image, texture)
 
 WebGL.prototype.InitGl = function(Texture_, Obj_)
 {
-    
-        this.shaderProgram = this.gl.createProgram();
-   
         this.initShaders();
        
        if(Obj_){
        
-         for(var i in Obj_){
-             this.initBuffers(Obj_[i]["name"],Obj_[i]["way"]);      
+         for(var key in Obj_){
+             this.initBuffers(Obj_[key]["name"],Obj_[key]["way"]);      
          }
 
 
-         for(var data_ in Texture_){
-             this.setTextures(data_, Texture_[data_]);
+         for(var key in Texture_){
+             this.setTextures(key, Texture_[key]);
          }
              this.Obj_ = Obj_; 
         
     }
 };
 
-WebGL.prototype.DrawGl = function()
+WebGL.prototype.DrawGl = function(ObjCamera, PosMouseX, PosMouseY, PosMouseZ)
 {      
     this.RenderBegin();
     
-        for(var i in this.Obj_){
-            this.setupWebGL();
+        for(var key in this.Obj_){
+            this.setupWebGL(key, ObjCamera, PosMouseX, PosMouseY, PosMouseZ);
             this.setMatrixUniforms();
-            this.draw(i);            
+            this.draw(key);            
         }
     
 };
 
-WebGL.prototype.ObjPos = function(i, PosX, PosY, PosZ, PosT)
+WebGL.prototype.ObjPos = function(key, PosX, PosY, PosZ, PosTx, PosTy, PosTz)
 {
-    this.Obj_[i]["x"] = PosX;
-    this.Obj_[i]["y"] = PosY;
-    this.Obj_[i]["z"] = PosZ;
-    this.Obj_[i]["t"] = PosT;
+    this.Obj_[key]["x"] = PosX;
+    this.Obj_[key]["y"] = PosY;
+    this.Obj_[key]["z"] = PosZ;
+    this.Obj_[key]["tx"] = PosTx;
+    this.Obj_[key]["tx"] = PosTy;
+    this.Obj_[key]["tx"] = PosTz;
              
 };

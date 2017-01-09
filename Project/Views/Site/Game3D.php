@@ -43,6 +43,8 @@
        
         gl = new Object();
 
+        var PosMouseX = 0;
+
         var canvas = document.getElementById("canvas3D");
 
         canvas.width = $(document).width();
@@ -57,6 +59,9 @@
             alert("Ваш браузер не поддерживает WebGL");
           }
         if(gl){
+            
+            document.addEventListener('keydown', handleKeyDown, false);
+            document.addEventListener('mousemove', handleMouseDown, false);
           
             gl.viewportWidth = canvas.width;
             gl.viewportHeight = canvas.height;
@@ -69,7 +74,7 @@
 
                 (function animloop(){
                                     
-                    m_pGameMain.RunScene();
+                    m_pGameMain.RunScene(PosMouseX, 0, 0);
                                                        
                   requestAnimFrame(animloop, canvas);
                 })();
@@ -88,6 +93,35 @@
                return window.setTimeout(callback, 1000/60);
              };
     })();
+       
+       
+        function handleKeyDown(e){
+        switch(e.keyCode)
+        {
+            case 65: 
+               m_pGameMain.gl_.Obj_["car"]["ty"] += 0.2;
+                break;
+            case 68:  
+             m_pGameMain.gl_.Obj_["car"]["ty"] -= 0.2;
+                break;
+            case 87:  
+               m_pGameMain.gl_.Obj_["car"]["z"] += Math.cos(m_pGameMain.gl_.Obj_["car"]["ty"]) * 0.5;
+               m_pGameMain.gl_.Obj_["car"]["x"] += Math.sin(m_pGameMain.gl_.Obj_["car"]["ty"]) * 0.5;
+                break;
+            case 83:  
+                
+                break;
+        }   
+    }
+       
+    var temp = 0;
+    var temp1 = 0;
+    function handleMouseDown(e){
+        temp = e.clientX;
+          if(temp > temp1){ PosMouseX+=0.05; }
+          if(temp < temp1){ PosMouseX-=0.05; }
+        temp1 = temp;    
+    }
        
     </script>
    
