@@ -34,8 +34,7 @@ while(true){
                         $sock_->DelSocket($sock);                        
                         continue;
                     }   
-                    $ArrD = array();
-                    $ArrD = NULL;
+                    
                     $ArrD = json_decode($data_['payload'], TRUE);
                                                          
                     
