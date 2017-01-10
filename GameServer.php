@@ -2,10 +2,12 @@
 
 ini_set('display_errors', 0);
 error_reporting(0);
-//error_reporting(E_ALL);
 set_time_limit(0);
 
 require_once 'PHP_Framework/Socket/InitSocket.php';
+require_once 'Server_Script/UserData.php';
+
+$m_aUserData = NULL;
 
 $adr_ = "127.0.0.1";
 $port_ = 9595;
@@ -22,7 +24,18 @@ while(true){
         
                 if($sock === $sock_->m_sock){
 
-                   $sock_->NewSocket();
+                   $m_aUserData[$sock_->NewSocket()] = new UserData;
+                   
+                   foreach ($sock_->cls as $socket) {
+
+                                if($socket != $m_sock && $val > 0 && $sock != $socket){
+                                                         
+                                    @socket_write($socket,(encode(json_encode($ArrTemp)))); 
+                                    
+                            }
+                            
+                        }
+                   
 
                 }else{
                          

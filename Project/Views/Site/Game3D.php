@@ -7,7 +7,7 @@
         <script  type="text/javascript" src="/TanksOnline/JavaScript/Math/gl-matrix-min.js"></script>
         <script type="text/javascript" src="/TanksOnline/Game_3D/Game_Main.js"></script>
         <script type="text/javascript" src="/TanksOnline/JavaScript/WebGL/WebGL.js"></script>       
-                  
+        <script type="text/javascript" src="/TanksOnline/Game_3D/Game_Network.js"></script>
     </head>
     <body>
                
