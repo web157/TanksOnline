@@ -6,4 +6,14 @@ webSocket.onerror = function(event) { alert('Произошла ошибка');}
             
 webSocket.onclose = function(event){ alert('Соединение закрыто...'); webSocket.close(); };
       
+      
+webSocket.onmessage = function(event){
+    
+    
+    
+    var Arrsen = $.parseJSON(event.data);
+    
+        
+       alert(Arrsen); 
+};
 

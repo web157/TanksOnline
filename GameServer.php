@@ -24,17 +24,29 @@ while(true){
         
                 if($sock === $sock_->m_sock){
 
-                   $m_aUserData[$sock_->NewSocket()] = new UserData;
+                    $TempSock = $sock_->NewSocket();
+                    
+                   $m_aUserData[$TempSock] = new UserData;
                    
                    foreach ($sock_->cls as $socket) {
 
-                                if($socket != $m_sock && $val > 0 && $sock != $socket){
+                                if($socket != $TempSock){
                                                          
-                                    @socket_write($socket,(encode(json_encode($ArrTemp)))); 
+                                    @socket_write($socket,($sock_->encode(json_encode("Hello")))); 
                                     
-                            }
-                            
+                                }
+                                                          
                         }
+                        
+                   foreach ($m_aUserData as $key=>$value) {                                            
+                       
+                       if($key != $TempSock){
+                       
+                         @socket_write($TempSock,($sock_->encode(json_encode("World"))));
+                         
+                       }
+                         
+                   }
                    
 
                 }else{
@@ -53,11 +65,11 @@ while(true){
                     
                         foreach ($sock_->cls as $socket) {
 
-                                if($socket != $m_sock && $val > 0 && $sock != $socket){
+                                if($socket != $sock_->m_sock && $sock_->val > 0 && $sock != $socket){
                                                          
                                     
                    
-                            }
+                                }
                             
                         }
                         
