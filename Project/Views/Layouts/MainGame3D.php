@@ -3,7 +3,7 @@
 <HEAD>
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
 
-<link rel="icon" type="image/png" href="/PatrioticClub//Images/Flag.png" />
+<link rel="icon" type="image/png" href="/TanksOnline/Multimedia/Images/TankIcon.png" />
 
 <TITLE>Tancs Online</TITLE>
 </HEAD>

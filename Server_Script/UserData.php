@@ -9,4 +9,6 @@ class UserData
     public $PosTy = 0;
     public $PosTz = 0;
     public $Name_ = "";
+    public $Authorization = false;
+    public $NumberServer;
 }

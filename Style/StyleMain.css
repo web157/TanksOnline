@@ -1,0 +1,38 @@
+@charset "utf-8";
+
+* {
+    margin: 0;
+    padding: 0;
+    outline: none;
+}
+
+#idDivMain{
+    max-width: 1250px;
+    height: auto;
+    margin:0 auto;
+    background:antiquewhite;
+}
+
+
+
+@media screen and (max-width: 768px){
+
+#idDivMain{
+    max-width: 1250px;
+    height: auto;
+    margin:0 auto;
+    background:aqua;
+}
+
+}
+
+@media screen and (max-width: 480px) {
+
+#idDivMain{
+    max-width: 1250px;
+    height: auto;
+    margin:0 auto;
+    background:blue;
+}
+
+}
