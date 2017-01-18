@@ -14,11 +14,33 @@
 <BODY>
 
     <div id="idDivMain">
-        <div id="idContent">                    
-            <?php
-            View::AddViews($template, $data);
-            ?>
+        
+        <header> 
+        
+        </header>
+        
+        <div id="idMenu">
+            
         </div>
+        
+        <div id="idLeftMenu">
+            
+        </div>
+        
+            <div id="idContent">                    
+                <?php
+                View::AddViews($template, $data);
+                ?>
+            </div>
+        
+        <div id="idRightMenu">
+            <a href='/TanksOnline/index.php/pageregistration'>Регистрация</a>
+        </div>
+        
+        <footer>
+        
+        </footer>
+        
     </div>
 </BODY>
 </HTML>

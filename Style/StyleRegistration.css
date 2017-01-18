@@ -1,0 +1,46 @@
+@charset "utf-8";
+
+#idFormAuthorization{
+    width: 350px;
+    height: 600px; 
+    position:relative;
+    top:25px;
+    margin:0 auto;
+    background:blueviolet;
+    text-align: center;
+}
+
+.idTextlogin{
+     margin-top: 10px;
+}
+
+#full_name{
+    margin-top: 10px;
+    width: 250px;
+    height: 30px; 
+}
+
+#email{  
+    margin-top: 10px;
+    width: 250px;
+    height: 30px; 
+}
+
+#username{
+    margin-top: 10px;
+    width: 250px;
+    height: 30px; 
+}
+
+#password{
+    margin-top: 10px;
+    width: 250px;
+    height: 30px; 
+}
+
+#idFormButt{
+    width: 140px;
+    height: 40px;
+    position:relative;
+    top:10px;
+}
