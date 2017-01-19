@@ -34,7 +34,26 @@
             </div>
         
         <div id="idRightMenu">
-            <a href='/TanksOnline/index.php/pageregistration'>Регистрация</a>
+            
+            <div id="idFormAuthorization">
+
+                <form action="/TanksOnline/index.php/inspectionlogin" method="post" name="login_form" >
+
+                    <h3 class='idTextlogin'>Логин</h3>
+
+                    <p5><input id="idFormLogin" type="text" name="l_username" required=" " /></p5>
+
+                    <h3 class='idTextlogin'>Пароль</h3>
+
+                    <p5><input id="idFormPassword" type="password" name="l_password" required=" " /></p5>
+                    <br>
+                    <p5><input id="idFormButton" type="submit" name="l_send" value="Войти" /></p5> 
+
+                </form>
+
+                <p id="idMainReg"><a href='/TanksOnline/index.php/pageregistration'>Регистрация</a></p>
+            </div>
+                       
         </div>
         
         <footer>

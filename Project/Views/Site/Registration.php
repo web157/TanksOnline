@@ -4,7 +4,7 @@
 
 <HTML>
 
-    <div id="idFormAuthorization">
+    <div id="idFormRegistration">
     
      <form action="/TanksOnline/index.php/registration" method="post" name="registration_form" >
   

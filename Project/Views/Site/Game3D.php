@@ -4,6 +4,7 @@
     <head>
         <meta charset="UTF-8">       
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <link href="/TanksOnline/Style/StyleGame3D.css" rel="stylesheet" type="text/css">
         <script  type="text/javascript" src="/TanksOnline/JavaScript/Math/gl-matrix-min.js"></script>
         <script type="text/javascript" src="/TanksOnline/Game_3D/Game_Main.js"></script>
         <script type="text/javascript" src="/TanksOnline/JavaScript/WebGL/WebGL.js"></script>       
@@ -126,5 +127,7 @@
     </script>
    
     </body>
+       
+    <script  type="text/javascript" src="/TanksOnline/Game_3D/Game_Interface.js"></script>
     
 </html>

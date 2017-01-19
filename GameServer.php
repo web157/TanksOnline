@@ -7,6 +7,17 @@ set_time_limit(0);
 require_once 'PHP_Framework/Socket/InitSocket.php';
 require_once 'Server_Script/UserData.php';
 
+$ConnectDB = mysqli_connect(
+                     'localhost',
+                     'root',
+                     'admin',
+                     'tanksonline'
+                     ); 
+if (!$ConnectDB) { 
+    printf("Невозможно подключиться к базе данных. Код ошибки: %s\n", mysqli_connect_error()); 
+    exit; 
+} 
+
 $m_aUserData = NULL;
 
 $adr_ = "127.0.0.1";
@@ -47,12 +58,39 @@ while(true){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
-                    
-                  foreach ($m_aUserData as $key=>$value) {                                            
-                                             
-                         @socket_write($sock_->cls[$key],($sock_->encode(json_encode($key))));                                               
+                if(!$m_aUserData[$sock]->Authorization){
+                    //exit();
+                   if(isset($ArrD["Authorization"])){
+                       
+                      $l_username = $ArrD["FormLog"];
+                      $l_password = md5($ArrD["FormPass"]); 
+                      
+                        $result_set = $ConnectDB->query(" SELECT * FROM usertbl WHERE username = '$l_username' AND password = '$l_password'");
+
+                        if($result_set->fetch_row() < 1){
                          
-                   }  
+                            @socket_write($sock,($sock_->encode(json_encode("Неверный"))));
+                            
+                        }else{                    
+                           
+                            $m_aUserData[$sock]->Authorization = true;
+                            
+                            @socket_write($sock,($sock_->encode(json_encode("ok"))));
+                            
+                        }
+                       
+                   } 
+                    
+                }
+                    
+                    
+                    
+                    
+                //  foreach ($m_aUserData as $key=>$value) {                                            
+                                             
+                //         @socket_write($sock_->cls[$key],($sock_->encode(json_encode($key))));                                               
+                         
+                //   }  
                   
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

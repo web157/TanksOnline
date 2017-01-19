@@ -52,6 +52,34 @@ header{
     background:blue;
 }
 
+#idFormAuthorization{
+    max-width: 100%;
+    height: auto;
+    text-align: center;  
+}
+
+#idFormLogin{
+    max-width: 100%;
+    height: 20px;
+    margin-top: 10px;
+}
+
+#idFormPassword{
+    max-width: 100%;
+    height: 20px;
+    margin-top: 10px;
+}
+
+#idFormButton{
+    max-width: 70%;
+    height: 20px;
+    margin-top: 10px;
+}
+
+#idMainReg{
+    margin-top: 10px;
+}
+
 footer{
     width: 100%;
     height: 200px;

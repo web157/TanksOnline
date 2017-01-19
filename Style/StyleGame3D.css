@@ -1,0 +1,46 @@
+@charset "utf-8";
+
+#idGameFormAuthorization{         
+    position: relative;   
+    position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin: auto;        
+            width: 300px;
+            height: 350px;         
+            background-color: rgba(238, 238, 209, 0.5);
+    position: fixed;
+}
+
+#idGameLoginText {
+  margin-left: 120px;  
+  font-size: 25px;  
+  color:black;
+}
+
+#idGameLoginForm {
+    width: 200px;
+    height: 30px;
+    margin-left: 50px;
+}
+
+#idGamePassText {
+  margin-left: 115px;  
+  font-size: 25px;
+  color: black;
+}
+
+#idGamePassForm {
+    width: 200px;
+    height: 30px;
+    margin-left: 50px;
+}
+
+#idGameButtonInput {
+    width: 75px;
+    height: 30px;
+    margin-top: 10px;
+    margin-left: 110px;
+}
