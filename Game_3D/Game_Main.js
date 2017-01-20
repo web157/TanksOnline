@@ -4,49 +4,23 @@ function GameMain(gl)
       
       this.Texture_ = Array();
       
-      this.Obj_;
+      this.ObjectScene = new GameObjectScene();
       
-      this.Obj_Data = Array();
-            
+      this.TextureScene = new GameTextureScene();            
 }
 
 GameMain.prototype.Initalize = function()
 {
-    this.Texture_["111"] = "Texture/111.png";
+    this.ObjectScene.Initalize();
     
-    this.Obj_ = {
-         name: "mapa",
-         way: "Object/111.obj",
-         text: "111",
-         x: 0,
-         y: 0,
-         z: 0,
-         tx: 0,
-         ty: 0,
-         tz: 0,
-         hide: false
-     };
-     
-     this.Obj_Data["mapa"] = this.Obj_; 
-     
-     this.Texture_["333"] = "Texture/333z.png";
+    this.TextureScene.Initalize();
     
-    this.Obj_ = {
-         name: "car",
-         way: "Object/car.obj",
-         text: "333",
-         x: 0,
-         y: 0,
-         z: 0,
-         tx: 0,
-         ty: 0,
-         tz: 0,
-         hide: false
-     };
-     
-     this.Obj_Data["car"] = this.Obj_; 
-    
-  this.gl_.InitGl(this.Texture_, this.Obj_Data);
+    this.InitalizeNumberScene(0);
+};
+
+GameMain.prototype.InitalizeNumberScene = function(NumberScene)
+{   
+  this.gl_.InitGl(this.TextureScene.InitalizeTextureScene(NumberScene), this.ObjectScene.InitalizeObjectScene(NumberScene));
 };
 
 GameMain.prototype.RunScene = function(PosMouseX, PosMouseY, PosMouseZ)

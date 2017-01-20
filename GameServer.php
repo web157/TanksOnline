@@ -59,7 +59,7 @@ while(true){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
                 if(!$m_aUserData[$sock]->Authorization){
-                    //exit();
+                    
                    if(isset($ArrD["Authorization"])){
                        
                       $l_username = $ArrD["FormLog"];
@@ -69,20 +69,45 @@ while(true){
 
                         if($result_set->fetch_row() < 1){
                          
-                            @socket_write($sock,($sock_->encode(json_encode("Неверный"))));
+                            $TempData["Authorization"] = false;
+                            
+                            @socket_write($sock,($sock_->encode(json_encode($TempData))));
+                            
+                            continue;
                             
                         }else{                    
                            
                             $m_aUserData[$sock]->Authorization = true;
                             
-                            @socket_write($sock,($sock_->encode(json_encode("ok"))));
+                            $TempData["Authorization"] = true;
                             
+                            @socket_write($sock,($sock_->encode(json_encode($TempData))));
+                            
+                            continue;
                         }
                        
                    } 
                     
                 }
                     
+                if($m_aUserData[$sock]->NumberServer == NULL){
+                    
+                    if(isset($ArrD["SelectionServer"])){
+                                                                     
+                        $m_aUserData[$sock]->NumberServer = $ArrD["SelectionServer"];
+                        
+                        $TempData1["StatGameServer"] = "StatGameServer";
+                        $TempData1["SelectionServer"] = $ArrD["SelectionServer"];
+                        $TempData1["ThisNameUser"] = $m_aUserData[$sock]->NameUser;
+                        $TempData1["NumberMapa"] = 1;
+                        
+                        @socket_write($sock,($sock_->encode(json_encode($TempData1))));
+                            
+                    }else{
+                        continue;
+                    }                     
+                    
+                }
                     
                     
                     

@@ -16,15 +16,42 @@ webSocket.onclose = function(event){ alert('Соединение закрыто.
 
             webSocket.send(JSON.stringify(OutFormArr));
 }     
+
+function SelectionServer(id){
+   
+    var ArrData = new Object();
+   
+    ArrData["SelectionServer"] = id;
+    
+    webSocket.send(JSON.stringify(ArrData));
+}
       
       
 webSocket.onmessage = function(event){
     
     
     
-    var Arrsen = $.parseJSON(event.data);
+    var ArrData = $.parseJSON(event.data);
+    
+    if(typeof ArrData["Authorization"] !=="undefined"){
+    
+        if(ArrData["Authorization"]){
+
+            $("#idGameFormAuthorization").hide();
+
+            $("#idGameNumberServer").show();
+        }else{
+            alert("Неверный логин или парроль");
+        }
+        
+    }
+     if(typeof ArrData["StatGameServer"] !== "undefined"){
+        
+        m_pGameMain.InitalizeNumberScene(ArrData["NumberMapa"]);
+    }
     
         
-       alert(Arrsen); 
+       //alert(ArrData); 
+      // m_pGameMain.InitalizeNumberScene(ArrData);
 };
 

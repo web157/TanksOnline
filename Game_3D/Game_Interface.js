@@ -31,3 +31,4 @@ input.value = 'Вход';
 input.setAttribute("onclick", "ButAuthClick();");
 input.id = 'idGameButtonInput';
 div.appendChild(input);
+

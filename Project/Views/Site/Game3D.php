@@ -9,9 +9,22 @@
         <script type="text/javascript" src="/TanksOnline/Game_3D/Game_Main.js"></script>
         <script type="text/javascript" src="/TanksOnline/JavaScript/WebGL/WebGL.js"></script>       
         <script type="text/javascript" src="/TanksOnline/Game_3D/Game_Network.js"></script>
+        <script  type="text/javascript" src="/TanksOnline/Game_3D/Game_Interface.js"></script>
+        <script  type="text/javascript" src="/TanksOnline/Game_3D/Game_ObjectScene.js"></script>
+        <script  type="text/javascript" src="/TanksOnline/Game_3D/Game_TextureScene.js"></script>
     </head>
     <body>
-               
+        <div id="idGameNumberServer">
+            <?php
+            
+            for($i = 1; $i < 5; $i++){
+            
+                echo "<div id='$i' class='classNumberServer' onclick='SelectionServer(id)'></div>";
+                    
+            }
+            ?>
+        </div>
+        
         <canvas id="canvas3D">Ваш браузер не поддерживает элемент canvas</canvas>
   
         <script id="shader-fs" type="x-shader/x-fragment">
@@ -127,7 +140,6 @@
     </script>
    
     </body>
-       
-    <script  type="text/javascript" src="/TanksOnline/Game_3D/Game_Interface.js"></script>
+           
     
 </html>
