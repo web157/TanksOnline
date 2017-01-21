@@ -235,7 +235,17 @@ WebGL.prototype.ObjPos = function(key, PosX, PosY, PosZ, PosTx, PosTy, PosTz)
     this.Obj_[key]["y"] = PosY;
     this.Obj_[key]["z"] = PosZ;
     this.Obj_[key]["tx"] = PosTx;
-    this.Obj_[key]["tx"] = PosTy;
-    this.Obj_[key]["tx"] = PosTz;
+    this.Obj_[key]["ty"] = PosTy;
+    this.Obj_[key]["tz"] = PosTz;
              
+};
+
+WebGL.prototype.NewObject = function(AddObject, key)
+{  
+    this.Obj_[key] = AddObject;            
+};
+
+WebGL.prototype.DelObject = function(key)
+{
+    delete this.Obj_[key];           
 };

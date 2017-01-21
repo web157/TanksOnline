@@ -77,10 +77,16 @@ while(true){
                             
                         }else{                    
                            
+                            $result_set1 = $ConnectDB->query("SELECT * FROM usertbl WHERE (username='$l_username')");
+                            
+                            $row = $result_set1->fetch_assoc();
+                            
+                            $m_aUserData[$sock]->NameUser = $row["full_name"];
+                            
                             $m_aUserData[$sock]->Authorization = true;
                             
                             $TempData["Authorization"] = true;
-                            
+                                                       
                             @socket_write($sock,($sock_->encode(json_encode($TempData))));
                             
                             continue;
@@ -100,15 +106,75 @@ while(true){
                         $TempData1["SelectionServer"] = $ArrD["SelectionServer"];
                         $TempData1["ThisNameUser"] = $m_aUserData[$sock]->NameUser;
                         $TempData1["NumberMapa"] = 1;
+                        $TempData1["ArrayDataUsers"] = array();
+                        
+                        foreach ($m_aUserData as $key=>$value) {
+                            
+                           if($key != $sock){
+                       
+                               $TempData1["ArrayDataUsers"][$m_aUserData[$key]->NameUser] = array();
+                               $TempData1["ArrayDataUsers"][$m_aUserData[$key]->NameUser]["PosX"] = $m_aUserData[$key]->PosX;
+                               $TempData1["ArrayDataUsers"][$m_aUserData[$key]->NameUser]["PosY"] = $m_aUserData[$key]->PosY;
+                               $TempData1["ArrayDataUsers"][$m_aUserData[$key]->NameUser]["PosZ"] = $m_aUserData[$key]->PosZ;
+                               $TempData1["ArrayDataUsers"][$m_aUserData[$key]->NameUser]["PosTx"] = $m_aUserData[$key]->PosTx;
+                               $TempData1["ArrayDataUsers"][$m_aUserData[$key]->NameUser]["PosTy"] = $m_aUserData[$key]->PosTy;
+                               $TempData1["ArrayDataUsers"][$m_aUserData[$key]->NameUser]["PosTz"] = $m_aUserData[$key]->PosTz;
+                           }                
+                            
+                        }  
                         
                         @socket_write($sock,($sock_->encode(json_encode($TempData1))));
+                        
+                        $TempData2["NewConectUser"] = true;
+                        $TempData2["NewConectUserData"] = array();                       
+                        $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser] = array();
+                        $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser]["PosX"] = $m_aUserData[$key]->PosX;
+                        $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser]["PosY"] = $m_aUserData[$key]->PosY;
+                        $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser]["PosZ"] = $m_aUserData[$key]->PosZ;
+                        $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser]["PosTx"] = $m_aUserData[$key]->PosTx;
+                        $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser]["PosTy"] = $m_aUserData[$key]->PosTy;
+                        $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser]["PosTz"] = $m_aUserData[$key]->PosTz;
+
+                        foreach ($m_aUserData as $key=>$value) {                                            
+                             
+                            if($key != $sock){
+                                                                                          
+                                @socket_write($sock_->cls[$key],($sock_->encode(json_encode($TempData2))));
+                            
+                            }
+                         
+                        } 
                             
                     }else{
                         continue;
                     }                     
                     
                 }
-                    
+                 
+                 if(isset($ArrD["MoveArrDataUser"])){
+                     
+                     $m_aUserData[$sock]->PosX = $ArrD["PosX"];
+                     $m_aUserData[$sock]->PosY = $ArrD["PosY"];
+                     $m_aUserData[$sock]->PosZ = $ArrD["PosZ"];
+                     $m_aUserData[$sock]->PosTy = $ArrD["PosTy"];
+                
+                     $TempData3["MoveArrDataUser"] = "MoveArrDataUser";
+                     $TempData3["UserName"] = $m_aUserData[$sock]->NameUser;
+                     $TempData3["PosX"] = $ArrD["PosX"];
+                     $TempData3["PosY"] = $ArrD["PosY"];
+                     $TempData3["PosZ"] = $ArrD["PosZ"];
+                     $TempData3["PosTy"] = $ArrD["PosTy"];
+                     
+                     foreach ($m_aUserData as $key=>$value) {                                            
+                             
+                            if($key != $sock){
+                                                                                          
+                                @socket_write($sock_->cls[$key],($sock_->encode(json_encode($TempData3))));
+                            
+                            }
+                         
+                        } 
+                 }
                     
                     
                 //  foreach ($m_aUserData as $key=>$value) {                                            

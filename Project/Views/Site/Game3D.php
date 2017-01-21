@@ -125,7 +125,9 @@
             case 83:  
                 
                 break;
-        }   
+        }
+        
+        MoveUser();              
     }
        
     var temp = 0;
