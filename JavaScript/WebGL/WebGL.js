@@ -12,6 +12,8 @@ function WebGL(gl)
       this.mvMatrix = mat4.create(); 
       this.pMatrix = mat4.create();
           
+       this.m_pVertices = Array();   
+          
       this.Obj_;              
 }
 
@@ -124,7 +126,10 @@ WebGL.prototype.initBuffers = function(key, way)
                    textureCoords = $.parseJSON(data);                  
                    }
                });
-             
+     
+  this.m_pVertices[key] = Array();
+  this.m_pVertices[key] = vertices;
+    
   this.vertexBuffer[key] = this.gl.createBuffer();
   this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.vertexBuffer[key]);
   this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(vertices), this.gl.STATIC_DRAW);
@@ -248,4 +253,9 @@ WebGL.prototype.NewObject = function(AddObject, key)
 WebGL.prototype.DelObject = function(key)
 {
     delete this.Obj_[key];           
+};
+
+WebGL.prototype.GetVert = function(NameBuffer)
+{
+    return this.m_pVertices[NameBuffer];
 };

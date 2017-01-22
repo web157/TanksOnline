@@ -34,14 +34,20 @@ GameObjectScene.prototype.GameObjectSceneNumber_1 = function()
          tx: 0,
          ty: 0,
          tz: 0,
+         addx: 0,
+         addy: 0,
+         addz: 0,
+         addtx: 0,
+         addty: 0,
+         addtz: 0,
          hide: false
      };
      
      this.ObjectSceneNumber_1["mapa"] = this.ObjectData;
      
      this.ObjectData = {
-         name: "car",
-         way: "Object/car.obj",
+         name: "tank",
+         way: "Object/tank.obj",
          text: "333",
          x: 0,
          y: 0,
@@ -49,10 +55,58 @@ GameObjectScene.prototype.GameObjectSceneNumber_1 = function()
          tx: 0,
          ty: 0,
          tz: 0,
+         addx: 0,
+         addy: 0,
+         addz: 0,
+         addtx: 0,
+         addty: 0,
+         addtz: 0,
          hide: false
      };
      
-     this.ObjectSceneNumber_1["car"] = this.ObjectData;
+     this.ObjectSceneNumber_1["tank"] = this.ObjectData;
+     
+     this.ObjectData = {
+         name: "tower",
+         way: "Object/tower.obj",
+         text: "333",
+         x: 0,
+         y: 0.5,
+         z: 0,
+         tx: 0,
+         ty: 0,
+         tz: 0,
+         addx: 0,
+         addy: 0.5,
+         addz: 0,
+         addtx: 0,
+         addty: 0,
+         addtz: 0,
+         hide: false
+     };
+     
+     this.ObjectSceneNumber_1["tower"] = this.ObjectData;
+     
+     this.ObjectData = {
+         name: "trunk",
+         way: "Object/trunk.obj",
+         text: "333",
+         x: 0,
+         y: 0.9,
+         z: 0,
+         tx: 0,
+         ty: 0,
+         tz: 0,
+         addx: 0,
+         addy: 0.9,
+         addz: 0,
+         addtx: 0,
+         addty: 0,
+         addtz: 0,
+         hide: false
+     };
+     
+     this.ObjectSceneNumber_1["trunk"] = this.ObjectData;
 };
 
 GameObjectScene.prototype.GameObjectSceneNumber_2 = function()
@@ -67,14 +121,20 @@ GameObjectScene.prototype.GameObjectSceneNumber_2 = function()
          tx: 0,
          ty: 0,
          tz: 0,
+         addx: 0,
+         addy: 0,
+         addz: 0,
+         addtx: 0,
+         addty: 0,
+         addtz: 0,
          hide: false
      };
      
      this.ObjectSceneNumber_2["sfera"] = this.ObjectData;
      
      this.ObjectData = {
-         name: "car",
-         way: "Object/car.obj",
+         name: "tank",
+         way: "Object/tank.obj",
          text: "333",
          x: 0,
          y: 0,
@@ -82,8 +142,56 @@ GameObjectScene.prototype.GameObjectSceneNumber_2 = function()
          tx: 0,
          ty: 0,
          tz: 0,
+         addx: 0,
+         addy: 0,
+         addz: 0,
+         addtx: 0,
+         addty: 0,
+         addtz: 0,
          hide: false
      };
      
-     this.ObjectSceneNumber_2["car"] = this.ObjectData;
+     this.ObjectSceneNumber_2["tank"] = this.ObjectData;
+     
+     this.ObjectData = {
+         name: "tower",
+         way: "Object/tower.obj",
+         text: "333",
+         x: 0,
+         y: 0.5,
+         z: 0,
+         tx: 0,
+         ty: 0,
+         tz: 0,
+         addx: 0,
+         addy: 0.5,
+         addz: 0,
+         addtx: 0,
+         addty: 0,
+         addtz: 0,
+         hide: false
+     };
+     
+     this.ObjectSceneNumber_1["tower"] = this.ObjectData;
+     
+     this.ObjectData = {
+         name: "trunk",
+         way: "Object/trunk.obj",
+         text: "333",
+         x: 0,
+         y: 0.9,
+         z: 0,
+         tx: 0,
+         ty: 0,
+         tz: 0,
+         addx: 0,
+         addy: 0.9,
+         addz: 0,
+         addtx: 0,
+         addty: 0,
+         addtz: 0,
+         hide: false
+     };
+     
+     this.ObjectSceneNumber_1["trunk"] = this.ObjectData;
 };

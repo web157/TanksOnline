@@ -30,12 +30,26 @@ function MoveUser(){
     
         var MoveArrData = new Object();
         MoveArrData["MoveArrDataUser"] ="MoveArrDataUser";
-        MoveArrData["PosX"] = m_pGameMain.gl_.Obj_["car"]["x"];
-        MoveArrData["PosY"] = m_pGameMain.gl_.Obj_["car"]["y"];
-        MoveArrData["PosZ"] = m_pGameMain.gl_.Obj_["car"]["z"];
-        MoveArrData["PosTx"] = m_pGameMain.gl_.Obj_["car"]["tx"];
-        MoveArrData["PosTy"] = m_pGameMain.gl_.Obj_["car"]["ty"];
-        MoveArrData["PosTz"] = m_pGameMain.gl_.Obj_["car"]["tz"];
+        MoveArrData["PosX"] = m_pGameMain.gl_.Obj_["tank"]["x"];
+        MoveArrData["PosY"] = m_pGameMain.gl_.Obj_["tank"]["y"];
+        MoveArrData["PosZ"] = m_pGameMain.gl_.Obj_["tank"]["z"];
+        MoveArrData["PosTx"] = m_pGameMain.gl_.Obj_["tank"]["tx"];
+        MoveArrData["PosTy"] = m_pGameMain.gl_.Obj_["tank"]["ty"];
+        MoveArrData["PosTz"] = m_pGameMain.gl_.Obj_["tank"]["tz"];
+        
+        MoveArrData["TowerPosX"] = m_pGameMain.gl_.Obj_["tower"]["x"];
+        MoveArrData["TowerPosY"] = m_pGameMain.gl_.Obj_["tower"]["y"];
+        MoveArrData["TowerPosZ"] = m_pGameMain.gl_.Obj_["tower"]["z"];
+        MoveArrData["TowerPosTx"] = m_pGameMain.gl_.Obj_["tower"]["tx"];
+        MoveArrData["TowerPosTy"] = m_pGameMain.gl_.Obj_["tower"]["ty"];
+        MoveArrData["TowerPosTz"] = m_pGameMain.gl_.Obj_["tower"]["tz"];
+        
+        MoveArrData["TrunkPosX"] = m_pGameMain.gl_.Obj_["trunk"]["x"];
+        MoveArrData["TrunkPosY"] = m_pGameMain.gl_.Obj_["trunk"]["y"];
+        MoveArrData["TrunkPosZ"] = m_pGameMain.gl_.Obj_["trunk"]["z"];
+        MoveArrData["TrunkPosTx"] = m_pGameMain.gl_.Obj_["trunk"]["tx"];
+        MoveArrData["TrunkPosTy"] = m_pGameMain.gl_.Obj_["trunk"]["ty"];
+        MoveArrData["TrunkPosTz"] = m_pGameMain.gl_.Obj_["trunk"]["tz"];
         
         webSocket.send(JSON.stringify(MoveArrData));
 }
@@ -77,6 +91,14 @@ webSocket.onmessage = function(event){
                     ArrData["ArrayDataUsers"][x]["PosZ"], ArrData["ArrayDataUsers"][x]["PosTx"], ArrData["ArrayDataUsers"][x]["PosTy"], 
                     ArrData["ArrayDataUsers"][x]["PosTz"]);
                     
+                    m_pGameMain.PositionsObject(x + "tower", ArrData["ArrayDataUsers"][x]["TowerPosX"], ArrData["ArrayDataUsers"][x]["TowerPosY"],
+                    ArrData["ArrayDataUsers"][x]["TowerPosZ"], ArrData["ArrayDataUsers"][x]["TowerPosTx"], ArrData["ArrayDataUsers"][x]["TowerPosTy"], 
+                    ArrData["ArrayDataUsers"][x]["TowerPosTz"]);
+                    
+                    m_pGameMain.PositionsObject(x + "trunk", ArrData["ArrayDataUsers"][x]["TrunkPosX"], ArrData["ArrayDataUsers"][x]["TrunkPosY"],
+                    ArrData["ArrayDataUsers"][x]["TrunkPosZ"], ArrData["ArrayDataUsers"][x]["TrunkPosTx"], ArrData["ArrayDataUsers"][x]["TrunkPosTy"], 
+                    ArrData["ArrayDataUsers"][x]["TrunkPosTz"]);
+                    
                 }
             }
     }
@@ -99,6 +121,12 @@ webSocket.onmessage = function(event){
       
         m_pGameMain.PositionsObject(ArrData["UserName"], ArrData["PosX"], ArrData["PosY"], 
         ArrData["PosZ"], ArrData["PosTx"], ArrData["PosTy"], ArrData["PosTz"]);
+        
+         m_pGameMain.PositionsObject(ArrData["UserName"] + "tower", ArrData["TowerPosX"], ArrData["TowerPosY"], 
+        ArrData["TowerPosZ"], ArrData["TowerPosTx"], ArrData["TowerPosTy"], ArrData["TowerPosTz"]);
+        
+         m_pGameMain.PositionsObject(ArrData["UserName"] + "trunk", ArrData["TrunkPosX"], ArrData["TrunkPosY"], 
+        ArrData["TrunkPosZ"], ArrData["TrunkPosTx"], ArrData["TrunkPosTy"], ArrData["TrunkPosTz"]);
       
      }
      

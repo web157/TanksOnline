@@ -12,6 +12,7 @@
         <script  type="text/javascript" src="/TanksOnline/Game_3D/Game_Interface.js"></script>
         <script  type="text/javascript" src="/TanksOnline/Game_3D/Game_ObjectScene.js"></script>
         <script  type="text/javascript" src="/TanksOnline/Game_3D/Game_TextureScene.js"></script>
+        <script  type="text/javascript" src="/TanksOnline/Game_3D/Game_Collision.js"></script>
     </head>
     <body>
         <div id="idGameNumberServer">
@@ -113,19 +114,56 @@
         switch(e.keyCode)
         {
             case 65: 
-               m_pGameMain.gl_.Obj_["car"]["ty"] += 0.2;
+               m_pGameMain.gl_.Obj_["tank"]["ty"] += 0.2;
                 break;
             case 68:  
-             m_pGameMain.gl_.Obj_["car"]["ty"] -= 0.2;
+             m_pGameMain.gl_.Obj_["tank"]["ty"] -= 0.2;
                 break;
             case 87:  
-               m_pGameMain.gl_.Obj_["car"]["z"] += Math.cos(m_pGameMain.gl_.Obj_["car"]["ty"]) * 0.5;
-               m_pGameMain.gl_.Obj_["car"]["x"] += Math.sin(m_pGameMain.gl_.Obj_["car"]["ty"]) * 0.5;
+               m_pGameMain.gl_.Obj_["tank"]["z"] += Math.cos(m_pGameMain.gl_.Obj_["tank"]["ty"]) * 0.5;
+               m_pGameMain.gl_.Obj_["tank"]["x"] += Math.sin(m_pGameMain.gl_.Obj_["tank"]["ty"]) * 0.5;
                 break;
             case 83:  
-                
+               m_pGameMain.gl_.Obj_["tank"]["z"] -= Math.cos(m_pGameMain.gl_.Obj_["tank"]["ty"]) * 0.5;
+               m_pGameMain.gl_.Obj_["tank"]["x"] -= Math.sin(m_pGameMain.gl_.Obj_["tank"]["ty"]) * 0.5;
                 break;
+            case 81:
+                m_pGameMain.gl_.Obj_["tower"]["addty"] += 0.2;
+                m_pGameMain.gl_.Obj_["trunk"]["addty"] = m_pGameMain.gl_.Obj_["tower"]["addty"];
+                break;
+            case 69:
+                m_pGameMain.gl_.Obj_["tower"]["addty"] -= 0.2;
+                m_pGameMain.gl_.Obj_["trunk"]["addty"] = m_pGameMain.gl_.Obj_["tower"]["addty"];
+                break;
+            case 82:
+                if(m_pGameMain.gl_.Obj_["trunk"]["addtx"] > -0.5){
+                    m_pGameMain.gl_.Obj_["trunk"]["addtx"] -= 0.05;
+                }
+                break;
+            case 70:
+                if(m_pGameMain.gl_.Obj_["trunk"]["addtx"] < 0){
+                    m_pGameMain.gl_.Obj_["trunk"]["addtx"] += 0.05;
+                }
+                break;    
         }
+        
+         m_pGameMain.gl_.Obj_["tank"]["y"] = m_pGameMain.CollisionObjectPosition(m_pGameMain.gl_.Obj_["tank"]["x"],
+         m_pGameMain.gl_.Obj_["tank"]["y"], m_pGameMain.gl_.Obj_["tank"]["z"], m_pGameMain.gl_.Obj_["tank"]["tx"],
+         m_pGameMain.gl_.Obj_["tank"]["ty"], m_pGameMain.gl_.Obj_["tank"]["tz"]);
+        
+        m_pGameMain.gl_.Obj_["tower"]["x"] = m_pGameMain.gl_.Obj_["tank"]["x"] + m_pGameMain.gl_.Obj_["tower"]["addx"];
+        m_pGameMain.gl_.Obj_["tower"]["y"] = m_pGameMain.gl_.Obj_["tank"]["y"] + m_pGameMain.gl_.Obj_["tower"]["addy"];
+        m_pGameMain.gl_.Obj_["tower"]["z"] = m_pGameMain.gl_.Obj_["tank"]["z"] + m_pGameMain.gl_.Obj_["tower"]["addz"];
+        m_pGameMain.gl_.Obj_["tower"]["tx"] = m_pGameMain.gl_.Obj_["tank"]["tx"] + m_pGameMain.gl_.Obj_["tower"]["addtx"];
+        m_pGameMain.gl_.Obj_["tower"]["ty"] = m_pGameMain.gl_.Obj_["tank"]["ty"] + m_pGameMain.gl_.Obj_["tower"]["addty"];
+        m_pGameMain.gl_.Obj_["tower"]["tz"] = m_pGameMain.gl_.Obj_["tank"]["tz"] + m_pGameMain.gl_.Obj_["tower"]["addtz"];
+        
+        m_pGameMain.gl_.Obj_["trunk"]["x"] = m_pGameMain.gl_.Obj_["tank"]["x"] + m_pGameMain.gl_.Obj_["trunk"]["addx"];
+        m_pGameMain.gl_.Obj_["trunk"]["y"] = m_pGameMain.gl_.Obj_["tank"]["y"] + m_pGameMain.gl_.Obj_["trunk"]["addy"];
+        m_pGameMain.gl_.Obj_["trunk"]["z"] = m_pGameMain.gl_.Obj_["tank"]["z"] + m_pGameMain.gl_.Obj_["trunk"]["addz"];
+        m_pGameMain.gl_.Obj_["trunk"]["tx"] = m_pGameMain.gl_.Obj_["tank"]["tx"] + m_pGameMain.gl_.Obj_["trunk"]["addtx"];
+        m_pGameMain.gl_.Obj_["trunk"]["ty"] = m_pGameMain.gl_.Obj_["tank"]["ty"] + m_pGameMain.gl_.Obj_["trunk"]["addty"];
+        m_pGameMain.gl_.Obj_["trunk"]["tz"] = m_pGameMain.gl_.Obj_["tank"]["tz"] + m_pGameMain.gl_.Obj_["trunk"]["addtz"];             
         
         MoveUser();              
     }
