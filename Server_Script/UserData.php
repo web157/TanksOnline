@@ -3,6 +3,8 @@
 class UserData
 {
     public $NameUser = "";
+    public $UserLogin = "";
+    public $ThisSocket;
     public $PosX = 0;
     public $PosY = 0;
     public $PosZ = 0;

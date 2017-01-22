@@ -33,17 +33,21 @@ function MoveUser(){
         MoveArrData["PosX"] = m_pGameMain.gl_.Obj_["car"]["x"];
         MoveArrData["PosY"] = m_pGameMain.gl_.Obj_["car"]["y"];
         MoveArrData["PosZ"] = m_pGameMain.gl_.Obj_["car"]["z"];
+        MoveArrData["PosTx"] = m_pGameMain.gl_.Obj_["car"]["tx"];
         MoveArrData["PosTy"] = m_pGameMain.gl_.Obj_["car"]["ty"];
+        MoveArrData["PosTz"] = m_pGameMain.gl_.Obj_["car"]["tz"];
         
         webSocket.send(JSON.stringify(MoveArrData));
 }
       
       
 webSocket.onmessage = function(event){
-    
-    
-    
+          
     var ArrData = $.parseJSON(event.data);
+    
+    if(typeof ArrData["ErrorLogin"] !=="undefined"){
+        alert('Вы уже залогинились');
+    }
     
     if(typeof ArrData["Authorization"] !=="undefined"){
     
@@ -94,7 +98,7 @@ webSocket.onmessage = function(event){
      if(typeof ArrData["MoveArrDataUser"] !== "undefined"){
       
         m_pGameMain.PositionsObject(ArrData["UserName"], ArrData["PosX"], ArrData["PosY"], 
-        ArrData["PosZ"], 0, ArrData["PosTy"], 0);
+        ArrData["PosZ"], ArrData["PosTx"], ArrData["PosTy"], ArrData["PosTz"]);
       
      }
      
