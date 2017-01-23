@@ -107,6 +107,27 @@ GameObjectScene.prototype.GameObjectSceneNumber_1 = function()
      };
      
      this.ObjectSceneNumber_1["trunk"] = this.ObjectData;
+     
+     this.ObjectData = {
+         name: "shar",
+         way: "Object/Shar1.obj",
+         text: "333",
+         x: 0,
+         y: 0.9,
+         z: 0,
+         tx: 0,
+         ty: 0,
+         tz: 0,
+         addx: 0,
+         addy: 0.9,
+         addz: 0,
+         addtx: 0,
+         addty: 0,
+         addtz: 0,
+         hide: false
+     };
+     
+     this.ObjectSceneNumber_1["shar"] = this.ObjectData;
 };
 
 GameObjectScene.prototype.GameObjectSceneNumber_2 = function()

@@ -117,3 +117,8 @@ GameMain.prototype.CollisionObjectPosition = function(PosX, PosY, PosZ, PosTx, P
 {
     return this.m_pCollision.ObjPosition(PosX, PosY, PosZ, PosTx, PosTy, PosTz);
 };
+
+GameMain.prototype.CollisionShot = function(PosX, PosY, PosZ)
+{
+    return this.m_pCollision.ShotCollision(PosX, PosY, PosZ);
+};

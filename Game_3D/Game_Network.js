@@ -1,3 +1,5 @@
+/* global m_pGameMain */
+
 var webSocket = new WebSocket('ws://127.0.0.1:9595');
  
 webSocket.onopen = function(event) { alert('onopen'); };  
