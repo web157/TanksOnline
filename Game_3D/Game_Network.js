@@ -87,7 +87,7 @@ webSocket.onmessage = function(event){
 
                 for (var x in ArrData["ArrayDataUsers"]){
                     
-                    m_pGameMain.NewUser(x);
+                    m_pGameMain.NewUser(x, ArrData["ArrayDataUsers"][x]["IdSock"]);
                     
                     m_pGameMain.PositionsObject(x, ArrData["ArrayDataUsers"][x]["PosX"], ArrData["ArrayDataUsers"][x]["PosY"],
                     ArrData["ArrayDataUsers"][x]["PosZ"], ArrData["ArrayDataUsers"][x]["PosTx"], ArrData["ArrayDataUsers"][x]["PosTy"], 
@@ -109,7 +109,7 @@ webSocket.onmessage = function(event){
         
         for (var x in ArrData["NewConectUserData"]){
                     
-                    m_pGameMain.NewUser(x);
+                    m_pGameMain.NewUser(x, ArrData["NewConectUserData"][x]["IdSock"]);
                     
                     m_pGameMain.PositionsObject(x, ArrData["NewConectUserData"][x]["PosX"], ArrData["NewConectUserData"][x]["PosY"],
                     ArrData["NewConectUserData"][x]["PosZ"], ArrData["NewConectUserData"][x]["PosTx"], ArrData["NewConectUserData"][x]["PosTy"], 

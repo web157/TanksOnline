@@ -149,6 +149,7 @@ while(true){
                                if($m_aUserData[$sock]->NumberServer == $m_aUserData[$key]->NumberServer){
                                
                                     $TempData1["ArrayDataUsers"][$m_aUserData[$key]->NameUser] = array();
+                                    $TempData1["ArrayDataUsers"][$m_aUserData[$key]->NameUser]["IdSock"] = $key;
                                     $TempData1["ArrayDataUsers"][$m_aUserData[$key]->NameUser]["PosX"] = $m_aUserData[$key]->PosX;
                                     $TempData1["ArrayDataUsers"][$m_aUserData[$key]->NameUser]["PosY"] = $m_aUserData[$key]->PosY;
                                     $TempData1["ArrayDataUsers"][$m_aUserData[$key]->NameUser]["PosZ"] = $m_aUserData[$key]->PosZ;
@@ -182,26 +183,27 @@ while(true){
                         $TempData2["NewConectUser"] = true;
                         $TempData2["NewConectUserData"] = array();                       
                         $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser] = array();
-                        $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser]["PosX"] = $m_aUserData[$key]->PosX;
-                        $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser]["PosY"] = $m_aUserData[$key]->PosY;
-                        $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser]["PosZ"] = $m_aUserData[$key]->PosZ;
-                        $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser]["PosTx"] = $m_aUserData[$key]->PosTx;
-                        $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser]["PosTy"] = $m_aUserData[$key]->PosTy;
-                        $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser]["PosTz"] = $m_aUserData[$key]->PosTz;
+                        $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser]["IdSock"] = (int)$m_aUserData[$sock]->ThisSocket;
+                        $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser]["PosX"] = $m_aUserData[$sock]->PosX;
+                        $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser]["PosY"] = $m_aUserData[$sock]->PosY;
+                        $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser]["PosZ"] = $m_aUserData[$sock]->PosZ;
+                        $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser]["PosTx"] = $m_aUserData[$sock]->PosTx;
+                        $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser]["PosTy"] = $m_aUserData[$sock]->PosTy;
+                        $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser]["PosTz"] = $m_aUserData[$sock]->PosTz;
                         
-                        $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser]["TowerPosX"] = $m_aUserData[$key]->TowerPosX;
-                        $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser]["TowerPosY"] = $m_aUserData[$key]->TowerPosY;
-                        $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser]["TowerPosZ"] = $m_aUserData[$key]->TowerPosZ;
-                        $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser]["TowerPosTx"] = $m_aUserData[$key]->TowerPosTx;
-                        $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser]["TowerPosTy"] = $m_aUserData[$key]->TowerPosTy;
-                        $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser]["TowerPosTz"] = $m_aUserData[$key]->TowerPosTz;
+                        $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser]["TowerPosX"] = $m_aUserData[$sock]->TowerPosX;
+                        $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser]["TowerPosY"] = $m_aUserData[$sock]->TowerPosY;
+                        $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser]["TowerPosZ"] = $m_aUserData[$sock]->TowerPosZ;
+                        $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser]["TowerPosTx"] = $m_aUserData[$sock]->TowerPosTx;
+                        $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser]["TowerPosTy"] = $m_aUserData[$sock]->TowerPosTy;
+                        $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser]["TowerPosTz"] = $m_aUserData[$sock]->TowerPosTz;
                         
-                        $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser]["TrunkPosX"] = $m_aUserData[$key]->TrunkPosX;
-                        $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser]["TrunkPosY"] = $m_aUserData[$key]->TrunkPosY;
-                        $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser]["TrunkPosZ"] = $m_aUserData[$key]->TrunkPosZ;
-                        $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser]["TrunkPosTx"] = $m_aUserData[$key]->TrunkPosTx;
-                        $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser]["TrunkPosTy"] = $m_aUserData[$key]->TrunkPosTy;
-                        $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser]["TrunkPosTz"] = $m_aUserData[$key]->TrunkPosTz;
+                        $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser]["TrunkPosX"] = $m_aUserData[$sock]->TrunkPosX;
+                        $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser]["TrunkPosY"] = $m_aUserData[$sock]->TrunkPosY;
+                        $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser]["TrunkPosZ"] = $m_aUserData[$sock]->TrunkPosZ;
+                        $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser]["TrunkPosTx"] = $m_aUserData[$sock]->TrunkPosTx;
+                        $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser]["TrunkPosTy"] = $m_aUserData[$sock]->TrunkPosTy;
+                        $TempData2["NewConectUserData"][$m_aUserData[$sock]->NameUser]["TrunkPosTz"] = $m_aUserData[$sock]->TrunkPosTz;
 
                         foreach ($m_aUserData as $key=>$value) {                                            
                              

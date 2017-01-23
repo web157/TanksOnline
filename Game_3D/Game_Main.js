@@ -9,6 +9,8 @@ function GameMain(gl)
       this.TextureScene = new GameTextureScene(); 
       
       this.m_pCollision = new Collision();
+      
+      this.NameObjectUser = Array();
 }
 
 GameMain.prototype.Initalize = function()
@@ -37,8 +39,10 @@ GameMain.prototype.PositionsObject = function(key, PosX, PosY, PosZ, PosTx, PosT
    this.gl_.ObjPos(key, PosX, PosY, PosZ, PosTx, PosTy, PosTz);
 };
 
-GameMain.prototype.NewUser = function(NameUser)
+GameMain.prototype.NewUser = function(NameUser, IdKey)
 {
+    this.NameObjectUser[NameUser] = IdKey;
+    
     var NewObjectData = {
          name: "tank",
          way: "Object/tank.obj",

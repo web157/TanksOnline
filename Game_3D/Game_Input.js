@@ -106,11 +106,115 @@ function handleKeyDown(e){
                      
                      if(m_pGameMain.CollisionShot(m_pGameMain.gl_.Obj_["shar"]["x"], m_pGameMain.gl_.Obj_["shar"]["y"], m_pGameMain.gl_.Obj_["shar"]["z"])){ break;}
 
+///////////////////////////////////////
+////////////////////////////////////////
+                     for (var key in m_pGameMain.NameObjectUser){
+                         
+                                var XDiff;
+				var YDiff;
+				var ZDiff;
+
+				var Distance;
+
+				var XCenter1;
+				var YCenter1;
+				var ZCenter1;
+
+				var XCenter2;
+				var YCenter2;
+				var ZCenter2;
+
+				var Radius1;
+
+
+
+
+				XCenter1 = m_pGameMain.gl_.Obj_["shar"]["x"];
+				YCenter1 = m_pGameMain.gl_.Obj_["shar"]["y"];
+				ZCenter1 = m_pGameMain.gl_.Obj_["shar"]["z"];
+
+				XCenter2 = m_pGameMain.gl_.Obj_[key]["x"];
+				YCenter2 = m_pGameMain.gl_.Obj_[key]["y"];
+				ZCenter2 = m_pGameMain.gl_.Obj_[key]["z"];
+
+				Radius1 = 1.5;
+
+
+				XDiff = Math.abs(XCenter2 - XCenter1);
+				YDiff = Math.abs(YCenter2 - YCenter1);
+				ZDiff = Math.abs(ZCenter2 - ZCenter1);
+				Distance = Math.sqrt(XDiff*XDiff + YDiff*YDiff + ZDiff*ZDiff);
+
+				
+				if (Distance <= Radius1){
+					
+                                        alert(m_pGameMain.NameObjectUser[key]);
+					
+					return;
+					
+				}
+          
+                     }
+///////////////////////////////////////////////
+////////////////////////////////////////////
                  }else{
 
                      m_pGameMain.gl_.Obj_["shar"]["y"] -= Math.sin(m_pGameMain.gl_.Obj_["trunk"]["tx"]) * 0.5;
                      
                      if(m_pGameMain.CollisionShot(m_pGameMain.gl_.Obj_["shar"]["x"], m_pGameMain.gl_.Obj_["shar"]["y"], m_pGameMain.gl_.Obj_["shar"]["z"])){ break;}
+                     
+                     ///////////////////////////////////////
+////////////////////////////////////////
+                     for (var key in m_pGameMain.NameObjectUser){
+                         
+                                var XDiff;
+				var YDiff;
+				var ZDiff;
+
+				var Distance;
+
+				var XCenter1;
+				var YCenter1;
+				var ZCenter1;
+
+				var XCenter2;
+				var YCenter2;
+				var ZCenter2;
+
+				var Radius1;
+
+
+
+
+				XCenter1 = m_pGameMain.gl_.Obj_["shar"]["x"];
+				YCenter1 = m_pGameMain.gl_.Obj_["shar"]["y"];
+				ZCenter1 = m_pGameMain.gl_.Obj_["shar"]["z"];
+
+				XCenter2 = m_pGameMain.gl_.Obj_[key]["x"];
+				YCenter2 = m_pGameMain.gl_.Obj_[key]["y"];
+				ZCenter2 = m_pGameMain.gl_.Obj_[key]["z"];
+
+				Radius1 = 2;
+
+
+				XDiff = Math.abs(XCenter2 - XCenter1);
+				YDiff = Math.abs(YCenter2 - YCenter1);
+				ZDiff = Math.abs(ZCenter2 - ZCenter1);
+				Distance = Math.sqrt(XDiff*XDiff + YDiff*YDiff + ZDiff*ZDiff);
+
+				 
+				if (Distance <= Radius1){
+					
+                                        alert(m_pGameMain.NameObjectUser[key]);
+					
+					return;
+					
+				}
+          
+                     }
+///////////////////////////////////////////////
+////////////////////////////////////////////
+
                  }
 
                }
