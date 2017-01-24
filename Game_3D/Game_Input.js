@@ -38,13 +38,20 @@ function handleKeyDown(e){
                 break;    
         }
         
-         var TempDataCollision = m_pGameMain.CollisionObjectPosition(m_pGameMain.gl_.Obj_["tank"]["x"],
+         var TempDataCollision = m_pGameMain.CollisionMapaPosition(m_pGameMain.gl_.Obj_["tank"]["x"],
          m_pGameMain.gl_.Obj_["tank"]["y"], m_pGameMain.gl_.Obj_["tank"]["z"], m_pGameMain.gl_.Obj_["tank"]["tx"],
          m_pGameMain.gl_.Obj_["tank"]["ty"], m_pGameMain.gl_.Obj_["tank"]["tz"]);
         
         m_pGameMain.gl_.Obj_["tank"]["y"] = TempDataCollision["PosY"];
         m_pGameMain.gl_.Obj_["tank"]["tz"] = TempDataCollision["PosTZ"];
         m_pGameMain.gl_.Obj_["tank"]["tx"] = TempDataCollision["PosTX"];
+        
+         var TempDataCollision1 = m_pGameMain.CollisionObjectsPosition(m_pGameMain.gl_.Obj_["tank"]["x"],
+         m_pGameMain.gl_.Obj_["tank"]["y"], m_pGameMain.gl_.Obj_["tank"]["z"], m_pGameMain.gl_.Obj_["tank"]["tx"],
+         m_pGameMain.gl_.Obj_["tank"]["ty"], m_pGameMain.gl_.Obj_["tank"]["tz"]);
+        
+        m_pGameMain.gl_.Obj_["tank"]["x"] = TempDataCollision1["PosX"];
+        m_pGameMain.gl_.Obj_["tank"]["z"] = TempDataCollision1["PosZ"];      
         
         m_pGameMain.gl_.Obj_["tower"]["x"] = m_pGameMain.gl_.Obj_["tank"]["x"] + m_pGameMain.gl_.Obj_["tower"]["addx"];
         m_pGameMain.gl_.Obj_["tower"]["y"] = m_pGameMain.gl_.Obj_["tank"]["y"] + m_pGameMain.gl_.Obj_["tower"]["addy"];
@@ -53,7 +60,7 @@ function handleKeyDown(e){
         m_pGameMain.gl_.Obj_["tower"]["ty"] = m_pGameMain.gl_.Obj_["tank"]["ty"] + m_pGameMain.gl_.Obj_["tower"]["addty"];
         //m_pGameMain.gl_.Obj_["tower"]["tz"] = m_pGameMain.gl_.Obj_["tank"]["tz"] + m_pGameMain.gl_.Obj_["tower"]["addtz"];
         
-         TempDataCollision = m_pGameMain.CollisionObjectPosition(m_pGameMain.gl_.Obj_["tower"]["x"],
+         TempDataCollision = m_pGameMain.CollisionMapaPosition(m_pGameMain.gl_.Obj_["tower"]["x"],
          m_pGameMain.gl_.Obj_["tower"]["y"], m_pGameMain.gl_.Obj_["tower"]["z"], m_pGameMain.gl_.Obj_["tower"]["tx"],
          m_pGameMain.gl_.Obj_["tower"]["ty"], m_pGameMain.gl_.Obj_["tower"]["tz"]);
          
@@ -68,7 +75,7 @@ function handleKeyDown(e){
         m_pGameMain.gl_.Obj_["trunk"]["ty"] = m_pGameMain.gl_.Obj_["tank"]["ty"] + m_pGameMain.gl_.Obj_["trunk"]["addty"];
         //m_pGameMain.gl_.Obj_["trunk"]["tz"] = m_pGameMain.gl_.Obj_["tank"]["tz"] + m_pGameMain.gl_.Obj_["trunk"]["addtz"];
         
-         TempDataCollision = m_pGameMain.CollisionObjectPosition(m_pGameMain.gl_.Obj_["trunk"]["x"],
+         TempDataCollision = m_pGameMain.CollisionMapaPosition(m_pGameMain.gl_.Obj_["trunk"]["x"],
          m_pGameMain.gl_.Obj_["trunk"]["y"], m_pGameMain.gl_.Obj_["trunk"]["z"], m_pGameMain.gl_.Obj_["trunk"]["tx"],
          m_pGameMain.gl_.Obj_["trunk"]["ty"], m_pGameMain.gl_.Obj_["trunk"]["tz"]);
          
@@ -137,7 +144,7 @@ function handleKeyDown(e){
 				YCenter2 = m_pGameMain.gl_.Obj_[key]["y"];
 				ZCenter2 = m_pGameMain.gl_.Obj_[key]["z"];
 
-				Radius1 = 1.5;
+				Radius1 = 2;
 
 
 				XDiff = Math.abs(XCenter2 - XCenter1);
@@ -148,8 +155,9 @@ function handleKeyDown(e){
 				
 				if (Distance <= Radius1){
 					
-                                        alert(m_pGameMain.NameObjectUser[key]);
-					
+                                        //alert(m_pGameMain.NameObjectUser[key]);
+					ShotTrue(m_pGameMain.NameObjectUser[key]);
+                                        
 					return;
 					
 				}
@@ -205,8 +213,9 @@ function handleKeyDown(e){
 				 
 				if (Distance <= Radius1){
 					
-                                        alert(m_pGameMain.NameObjectUser[key]);
-					
+                                        //alert(m_pGameMain.NameObjectUser[key]);
+					ShotTrue(m_pGameMain.NameObjectUser[key]);
+                                        
 					return;
 					
 				}

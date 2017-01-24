@@ -3,12 +3,19 @@ function Collision()
 {
     this.Vert = Array();
     this.PreviousNumTriangle = 0;
+    
+    this.Vert1 = Array();
+    this.PreviousNumTriangle1 = 0;
+    
+    this.PreviousDataPosition = Array();
 }
 
-Collision.prototype.AssemblyTriangle = function(Vert1)
-{   
-    //this.Vert = Vert;      
+Collision.prototype.AssemblyTriangleMapa = function(Vert1)
+{       
+    this.Vert = [];
     
+    this.PreviousNumTriangle = 0;
+   
     var j = 0;
     
     for(var i = 0; i < Vert1.length / 3; i++){
@@ -36,8 +43,46 @@ Collision.prototype.AssemblyTriangle = function(Vert1)
      
      
     }
+   
+};
+
+Collision.prototype.AssemblyTriangleObject = function(Vert2)
+{      
+    this.PreviousDataPosition["PosX"];       
+    this.PreviousDataPosition["PosZ"];
     
-    //document.write(JSON.stringify(this.Vert));
+    this.Vert1 = [];
+    
+    this.PreviousNumTriangle1 = 0;
+   
+    var j = 0;
+    
+    for(var i = 0; i < Vert2.length / 3; i++){
+     
+     this.Vert1[i] = Array();
+     
+     this.Vert1[i]["x"] = Vert2[j];
+     j++;
+     this.Vert1[i]["y"] = Vert2[j];
+     j++;
+     this.Vert1[i]["z"] = Vert2[j];
+     j++;
+     this.Vert1[i]["x1"] = Vert2[j];
+     j++;
+     this.Vert1[i]["y1"] = Vert2[j];
+     j++;
+     this.Vert1[i]["z1"] = Vert2[j];
+     j++;
+     this.Vert1[i]["x2"] = Vert2[j];
+     j++;
+     this.Vert1[i]["y2"] = Vert2[j];
+     j++;
+     this.Vert1[i]["z2"] = Vert2[j];
+     j++;
+     
+     
+    }
+   
 };
 
 function s2(x1,y1,x2,y2,x3,y3)
@@ -45,7 +90,7 @@ function s2(x1,y1,x2,y2,x3,y3)
 		return ((x1 - x2)*(y3 - y2) - (y1 - y2)*(x3 - x2));
 	}
 
-Collision.prototype.ObjPosition = function(PosX, PosY, PosZ, PosTx, PosTy, PosTz)
+Collision.prototype.MapaPosition = function(PosX, PosY, PosZ, PosTx, PosTy, PosTz)
 {
     /*
    var x1, y1, x2, y2, x3, y3, z1, z2, z3;
@@ -110,6 +155,13 @@ Collision.prototype.ObjPosition = function(PosX, PosY, PosZ, PosTx, PosTy, PosTz
     */
    
    var DataCollision = Array();
+   
+   DataCollision["PosX"] = PosX;
+   DataCollision["PosY"] = PosY;
+   DataCollision["PosZ"] = PosZ;
+   DataCollision["PosTX"] = PosTx;
+   DataCollision["PosTY"] = PosTy;
+   DataCollision["PosTZ"] = PosTz;
    
    var x1, y1, x2, y2, x3, y3, z1, z2, z3;
 	var X2, Z2;
@@ -1064,4 +1116,178 @@ Collision.prototype.ShotCollision = function(PosX, PosY, PosZ)
     return false;
     //return PosY;
     
+};
+
+Collision.prototype.ObjectsPosition = function(PosX, PosY, PosZ, PosTx, PosTy, PosTz)
+{
+    var DataCollision = Array();
+   
+   DataCollision["PosX"] = PosX;
+   DataCollision["PosY"] = PosY;
+   DataCollision["PosZ"] = PosZ;
+   DataCollision["PosTX"] = PosTx;
+   DataCollision["PosTY"] = PosTy;
+   DataCollision["PosTZ"] = PosTz;
+    
+    var x1, y1, x2, y2, x3, y3, z1, z2, z3;
+		var X2, Z2;
+		var x, y;
+		var f1, f2, f3;
+
+		for (var i = 0; i < this.Vert1.length / 3; i++){
+
+			x1 = this.Vert1[i]["y"];
+			y1 = this.Vert1[i]["z"];
+
+			x2 = this.Vert1[i]["y1"];
+			y2 = this.Vert1[i]["z1"];
+
+			x3 = this.Vert1[i]["y2"];
+			y3 = this.Vert1[i]["z2"];
+
+			x = PosY + 0.5;
+			y = PosZ;
+
+			f1 = s2(x, y, x1, y1, x2, y2);
+			f2 = s2(x, y, x2, y2, x3, y3);
+			f3 = s2(x, y, x3, y3, x1, y1);
+
+
+
+
+			if ((f1*f2) > 0 && (f2*f3) > 0){
+
+				var XDiff;
+				var YDiff;
+				var ZDiff;
+
+				var Distance;
+
+				var XCenter1;
+				var YCenter1;
+				var ZCenter1;
+
+				var XCenter2;
+				var YCenter2;
+				var ZCenter2;
+
+				var Radius1;
+
+
+
+
+				XCenter1 = PosX;
+				YCenter1 = this.Vert1[i]["y"];
+				ZCenter1 = this.Vert1[i]["z"];
+
+				XCenter2 = this.Vert1[i]["x"];
+				YCenter2 = this.Vert1[i]["y"];
+				ZCenter2 = this.Vert1[i]["z"];
+
+				Radius1 = 2;
+
+
+				XDiff = Math.abs(XCenter2 - XCenter1);
+				YDiff = Math.abs(YCenter2 - YCenter1);
+				ZDiff = Math.abs(ZCenter2 - ZCenter1);
+				Distance = Math.sqrt(XDiff*XDiff + YDiff*YDiff + ZDiff*ZDiff);
+
+				// если сферы пересекаются… 
+				if (Distance <= Radius1){					
+					//*PosX = *TempPosX;
+					DataCollision["PosX"] = this.PreviousDataPosition["PosX"];
+                                        
+					return DataCollision;
+				
+				}
+						
+
+
+			}
+
+		}
+
+
+		for (var i = 0; i < this.Vert1.length / 3; i++){
+
+			x1 = this.Vert1[i]["y"];
+			y1 = this.Vert1[i]["x"];
+
+			x2 = this.Vert1[i]["y1"];
+			y2 = this.Vert1[i]["x1"];
+
+			x3 = this.Vert1[i]["y2"];
+			y3 = this.Vert1[i]["x2"];
+
+			x = PosY + 0.5;
+			y = PosX;
+
+			f1 = s2(x, y, x1, y1, x2, y2);
+			f2 = s2(x, y, x2, y2, x3, y3);
+			f3 = s2(x, y, x3, y3, x1, y1);
+
+
+
+
+			if ((f1*f2) > 0 && (f2*f3) > 0){
+
+				var XDiff;
+				var YDiff;
+				var ZDiff;
+
+				var Distance;
+
+				var XCenter1;
+				var YCenter1;
+				var ZCenter1;
+
+				var XCenter2;
+				var YCenter2;
+				var ZCenter2;
+
+				var Radius1;
+
+
+
+
+				XCenter1 = this.Vert1[i]["x"];
+				YCenter1 = this.Vert1[i]["y"];
+				ZCenter1 = PosZ;
+
+				XCenter2 = this.Vert1[i]["x"];
+				YCenter2 = this.Vert1[i]["y"];
+				ZCenter2 = this.Vert1[i]["z"];
+
+				Radius1 = 2;
+
+
+				XDiff = Math.abs(XCenter2 - XCenter1);
+				YDiff = Math.abs(YCenter2 - YCenter1);
+				ZDiff = Math.abs(ZCenter2 - ZCenter1);
+				Distance = Math.sqrt(XDiff*XDiff + YDiff*YDiff + ZDiff*ZDiff);
+
+				// если сферы пересекаются… 
+				if (Distance <= Radius1){
+					//*PosZ = *TempPosZ;
+					DataCollision["PosZ"] = this.PreviousDataPosition["PosZ"];
+                                        
+					return DataCollision;
+					
+				}
+				
+
+
+			}
+
+		}
+
+		///*TempPosX = *PosX;
+		//*TempPosZ = *PosZ;
+
+		
+	
+        this.PreviousDataPosition["PosX"] = PosX;       
+        this.PreviousDataPosition["PosZ"] = PosZ;
+      
+        return DataCollision;
 };

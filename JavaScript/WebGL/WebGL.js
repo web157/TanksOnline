@@ -257,5 +257,6 @@ WebGL.prototype.DelObject = function(key)
 
 WebGL.prototype.GetVert = function(NameBuffer)
 {
+    //document.write(JSON.stringify(this.m_pVertices[NameBuffer]));
     return this.m_pVertices[NameBuffer];
 };

@@ -7,6 +7,7 @@ set_time_limit(0);
 require_once 'PHP_Framework/Socket/InitSocket.php';
 require_once 'Server_Script/UserData.php';
 require_once 'Server_Script/ServerMapaNumber.php';
+require_once 'Server_Script/ObjPicking.php';
 
 $ConnectDB = mysqli_connect(
                      'localhost',
@@ -285,7 +286,31 @@ while(true){
                          
                         } 
                  }
-                    
+                  
+                 
+                 
+                 if(isset($ArrD["DataShotTrue"])){
+                   
+                    //$Res = Pick($ArrD["PosX"], $ArrD["PosY"], $ArrD["PosZ"], $ArrD["PosTy"], $m_aUserData[$ArrD["IdSock"]]->PosX,
+                    //       $m_aUserData[$ArrD["IdSock"]]->PosY, $m_aUserData[$ArrD["IdSock"]]->PosZ, $m_aUserData[$ArrD["IdSock"]]->PosTy); 
+                     
+                    //if($Res){
+                       
+                        $m_aUserData[$ArrD["IdSock"]]->Xp -= 1;
+                        
+                        if($m_aUserData[$ArrD["IdSock"]]->Xp == 0){
+                            
+                            $m_aUserData[$ArrD["IdSock"]]->Xp = 3;
+                            
+                            $TempDataShot["DataShot"] = "DataShot";
+                            
+                            @socket_write($m_aUserData[$ArrD["IdSock"]]->ThisSocket,($sock_->encode(json_encode($TempDataShot))));
+                            
+                        }
+                        
+                    //}
+                     
+                 }
                     
                 //  foreach ($m_aUserData as $key=>$value) {                                            
                                              

@@ -22,6 +22,8 @@ GameMain.prototype.Initalize = function()
     this.InitalizeNumberScene(0);  
     
     this.InitalizeMapaCollision("mapa");
+    
+    this.InitalizeObjectCollision("Objects_");
 };
 
 GameMain.prototype.InitalizeNumberScene = function(NumberScene)
@@ -114,12 +116,22 @@ GameMain.prototype.DelUser = function(NameUser)
 
 GameMain.prototype.InitalizeMapaCollision = function(NameMapa)
 {
-    this.m_pCollision.AssemblyTriangle(this.gl_.GetVert(NameMapa));
+    this.m_pCollision.AssemblyTriangleMapa(this.gl_.GetVert(NameMapa));
 };
 
-GameMain.prototype.CollisionObjectPosition = function(PosX, PosY, PosZ, PosTx, PosTy, PosTz)
+GameMain.prototype.InitalizeObjectCollision = function(NameObject)
 {
-    return this.m_pCollision.ObjPosition(PosX, PosY, PosZ, PosTx, PosTy, PosTz);
+    this.m_pCollision.AssemblyTriangleObject(this.gl_.GetVert(NameObject));
+};
+
+GameMain.prototype.CollisionMapaPosition = function(PosX, PosY, PosZ, PosTx, PosTy, PosTz)
+{
+    return this.m_pCollision.MapaPosition(PosX, PosY, PosZ, PosTx, PosTy, PosTz);
+};
+
+GameMain.prototype.CollisionObjectsPosition = function(PosX, PosY, PosZ, PosTx, PosTy, PosTz)
+{   
+    return this.m_pCollision.ObjectsPosition(PosX, PosY, PosZ, PosTx, PosTy, PosTz);
 };
 
 GameMain.prototype.CollisionShot = function(PosX, PosY, PosZ)

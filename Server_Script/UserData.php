@@ -24,6 +24,7 @@ class UserData
     public $TrunkPosTy = 0;
     public $TrunkPosTz = 0;
     public $IdUser = "";
+    public $Xp = 3;
     public $Authorization = false;
     public $NumberServer = NULL;
 }

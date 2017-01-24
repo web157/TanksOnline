@@ -55,6 +55,20 @@ function MoveUser(){
         
         webSocket.send(JSON.stringify(MoveArrData));
 }
+
+function ShotTrue(IdSock){
+    
+    var ArrDataShotTrue = new Object();
+    
+    ArrDataShotTrue["DataShotTrue"] = "DataShotTrue";
+    ArrDataShotTrue["IdSock"] = IdSock;
+    ArrDataShotTrue["PosX"] = m_pGameMain.gl_.Obj_["tower"]["x"];
+    ArrDataShotTrue["PosY"] = m_pGameMain.gl_.Obj_["tower"]["y"];
+    ArrDataShotTrue["PosZ"] = m_pGameMain.gl_.Obj_["tower"]["z"];
+    ArrDataShotTrue["PosTy"] = m_pGameMain.gl_.Obj_["tower"]["tx"];
+    
+    webSocket.send(JSON.stringify(ArrDataShotTrue));
+}
       
       
 webSocket.onmessage = function(event){
@@ -82,6 +96,10 @@ webSocket.onmessage = function(event){
         $("#idGameNumberServer").hide();
         
         m_pGameMain.InitalizeNumberScene(ArrData["NumberMapa"]);
+        
+        m_pGameMain.InitalizeMapaCollision("mapa1");
+        
+        m_pGameMain.InitalizeObjectCollision("Objects_");
         
             if(typeof ArrData["ArrayDataUsers"] !=="undefined"){
 
@@ -130,6 +148,12 @@ webSocket.onmessage = function(event){
          m_pGameMain.PositionsObject(ArrData["UserName"] + "trunk", ArrData["TrunkPosX"], ArrData["TrunkPosY"], 
         ArrData["TrunkPosZ"], ArrData["TrunkPosTx"], ArrData["TrunkPosTy"], ArrData["TrunkPosTz"]);
       
+     }
+     
+     if(typeof ArrData["DataShot"] !=="undefined"){
+    
+        alert("Shot");
+    
      }
      
         /*
