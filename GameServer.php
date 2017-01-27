@@ -24,7 +24,8 @@ $m_pNumberMapa = array();
 
 for($j = 1; $j < 5; $j++){
     $m_pNumberMapa[$j] = new ServerMapaNumber;
-    $m_pNumberMapa[$j]->Number_Mapa = $j - 1;
+    $m_pNumberMapa[$j]->Number_Mapa =  rand(1, 2);
+    $m_pNumberMapa[$j]->TimeoutMapa = time();
 }
 
 $m_aUserData = NULL;
@@ -38,7 +39,9 @@ $sock_->Initalize($adr_, $port_);
 
 while(true){
     
-    if($sock_->AsserpSocket()){
+    $AssRes = $sock_->AsserpSocket();
+    
+    if($AssRes){
         
          foreach ($sock_->changed as $sock) {
         
@@ -59,6 +62,29 @@ while(true){
                     $data_ = $sock_->decode($d);
                     
                     if($data_['type'] === 'close'){
+                        
+                        $DataDeletUser["DeleteUser"] = $m_aUserData[$sock]->NameUser;
+                        
+                        foreach ($m_aUserData as $key=>$value) {                                            
+                             
+                            if($key != $sock){
+                                                
+                                if($m_aUserData[$sock]->NumberServer == $m_aUserData[$key]->NumberServer){
+                               
+                                        @socket_write($sock_->cls[$key],($sock_->encode(json_encode($DataDeletUser))));
+                                
+                                }
+                            
+                            }
+                         
+                        } 
+                        
+                        if($m_aUserData[$sock]->NumberServer){
+                        
+                            $m_pNumberMapa[$m_aUserData[$sock]->NumberServer]->NumUsers--;
+                        
+                        }
+                        
                         unset($m_aUserData[$sock]);
                         $sock_->DelSocket($sock);                        
                         continue;
@@ -85,6 +111,12 @@ while(true){
                               $TempErrLogData["ErrorLogin"] = "ErrorLogin";
                                                            
                               $sock_->DelSocket($m_aUserData[$key]->ThisSocket); 
+                              
+                              if($m_aUserData[$key]->NumberServer){
+                        
+                                $m_pNumberMapa[$m_aUserData[$key]->NumberServer]->NumUsers--;
+                        
+                              }
                               
                               unset($m_aUserData[$key]);
                               
@@ -134,13 +166,33 @@ while(true){
                 if($m_aUserData[$sock]->NumberServer == NULL){
                     
                     if(isset($ArrD["SelectionServer"])){
-                                                                     
+                                  
+                        if($m_pNumberMapa[$ArrD["SelectionServer"]]->NumUsers == $m_pNumberMapa[$ArrD["SelectionServer"]]->MaxUsers){
+                            
+                            $TempErrSelServ["ErrSelServer"] = true;
+                            
+                            @socket_write($sock,($sock_->encode(json_encode($TempErrSelServ))));
+                            
+                            continue;
+                        }
+                        
+                        $m_pNumberMapa[$ArrD["SelectionServer"]]->NumUsers++;
+                        
                         $m_aUserData[$sock]->NumberServer = $ArrD["SelectionServer"];
                         
                         $TempData1["StatGameServer"] = "StatGameServer";
                         $TempData1["SelectionServer"] = $ArrD["SelectionServer"];
                         $TempData1["ThisNameUser"] = $m_aUserData[$sock]->NameUser;
                         $TempData1["NumberMapa"] = $m_pNumberMapa[$m_aUserData[$sock]->NumberServer]->Number_Mapa;
+                        
+                        $TempData1["ThisPositionObject"] = array();
+                        
+                        $tempRand = rand(0, 2);
+                        
+                        $TempData1["ThisPositionObject"]["PosX"] = $m_pNumberMapa[$m_aUserData[$sock]->NumberServer]->MapaPosition[$TempData1["NumberMapa"]][$tempRand]["PosX"];
+                        $TempData1["ThisPositionObject"]["PosY"] = $m_pNumberMapa[$m_aUserData[$sock]->NumberServer]->MapaPosition[$TempData1["NumberMapa"]][$tempRand]["PosY"]; 
+                        $TempData1["ThisPositionObject"]["PosZ"] = $m_pNumberMapa[$m_aUserData[$sock]->NumberServer]->MapaPosition[$TempData1["NumberMapa"]][$tempRand]["PosZ"]; 
+                        
                         $TempData1["ArrayDataUsers"] = array();
                         
                         foreach ($m_aUserData as $key=>$value) {
@@ -304,6 +356,15 @@ while(true){
                             
                             $TempDataShot["DataShot"] = "DataShot";
                             
+                            $TempDataShot["ThisPositionObject"] = array();
+                        
+                            $tempRand = rand(0, 2);
+                            
+                            $TempDataShot["ThisPositionObject"]["PosX"] = $m_pNumberMapa[$m_aUserData[$sock]->NumberServer]->MapaPosition[$TempData1["NumberMapa"]][$tempRand]["PosX"];
+                            $TempDataShot["ThisPositionObject"]["PosY"] = $m_pNumberMapa[$m_aUserData[$sock]->NumberServer]->MapaPosition[$TempData1["NumberMapa"]][$tempRand]["PosY"]; 
+                            $TempDataShot["ThisPositionObject"]["PosZ"] = $m_pNumberMapa[$m_aUserData[$sock]->NumberServer]->MapaPosition[$TempData1["NumberMapa"]][$tempRand]["PosZ"]; 
+                        
+                            
                             @socket_write($m_aUserData[$ArrD["IdSock"]]->ThisSocket,($sock_->encode(json_encode($TempDataShot))));
                             
                         }
@@ -312,21 +373,67 @@ while(true){
                      
                  }
                     
-                //  foreach ($m_aUserData as $key=>$value) {                                            
-                                             
-                //         @socket_write($sock_->cls[$key],($sock_->encode(json_encode($key))));                                               
+                  //foreach ($m_aUserData as $key=>$value) {                                            
+                                           
+                   //   $DataTest["Test"] = true;
+                      
+                  //       @socket_write($sock_->cls[$key],($sock_->encode(json_encode($DataTest))));                                               
                          
-                //   }  
+                  //}  
                   
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////                    
                 } 
-                
-                
-            
+                                         
         }
         
+        
+        
+    }
+    
+    if(time() - $m_pNumberMapa[1]->TimeoutMapa > 1800){
+    
+        for($j = 1; $j < 5; $j++){         
+            $m_pNumberMapa[$j]->Number_Mapa =  rand(1, 2);
+            $m_pNumberMapa[$j]->TimeoutMapa = time();
+        }
+        
+        foreach ($m_aUserData as $key=>$value) {                                            
+
+                        $DataNewMapa["NewMapa"] = true;
+
+                        $DataNewMapa["NumberMapa"] = $m_pNumberMapa[$m_aUserData[$key]->NumberServer]->Number_Mapa;
+                          
+                        $DataNewMapa["ThisPositionObject"] = array();
+                        
+                        $DataNewMapa["ListUsers"] = array();
+                        
+                        $tempRand = rand(0, 2);
+                        
+                        $DataNewMapa["ThisPositionObject"]["PosX"] = $m_pNumberMapa[$m_aUserData[$key]->NumberServer]->MapaPosition[$DataNewMapa["NumberMapa"]][$tempRand]["PosX"];
+                        $DataNewMapa["ThisPositionObject"]["PosY"] = $m_pNumberMapa[$m_aUserData[$key]->NumberServer]->MapaPosition[$DataNewMapa["NumberMapa"]][$tempRand]["PosY"]; 
+                        $DataNewMapa["ThisPositionObject"]["PosZ"] = $m_pNumberMapa[$m_aUserData[$key]->NumberServer]->MapaPosition[$DataNewMapa["NumberMapa"]][$tempRand]["PosZ"]; 
+                        
+                         foreach ($m_aUserData as $tempkey=>$tempvalue) {                                            
+                             
+                            if($tempkey != $key){
+                                                
+                                if($m_aUserData[$key]->NumberServer == $m_aUserData[$tempkey]->NumberServer){
+                               
+                                    $DataNewMapa["ListUsers"][$m_aUserData[$tempkey]->NameUser] = (int)$m_aUserData[$tempkey]->ThisSocket;  
+                                
+                                }
+                            
+                            }
+                         
+                        } 
+                        
+                          
+                         @socket_write($sock_->cls[$key],($sock_->encode(json_encode($DataNewMapa))));                                               
+
+        } 
+    
     }
     
 }  

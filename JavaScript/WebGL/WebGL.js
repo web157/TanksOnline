@@ -1,3 +1,5 @@
+/* global mat4 */
+
 function WebGL(gl)
 {
       this.gl = gl; 
@@ -14,7 +16,7 @@ function WebGL(gl)
           
        this.m_pVertices = Array();   
           
-      this.Obj_;              
+      this.Obj_ = new Object();              
 }
 
 WebGL.prototype.initShaders = function()
@@ -22,7 +24,7 @@ WebGL.prototype.initShaders = function()
     var fragmentShader = this.getShader(this.gl.FRAGMENT_SHADER, 'shader-fs');
     var vertexShader = this.getShader(this.gl.VERTEX_SHADER, 'shader-vs');
  
-    this.shaderProgram = gl.createProgram();
+    this.shaderProgram = this.gl.createProgram();
  
     this.gl.attachShader(this.shaderProgram, vertexShader);
     this.gl.attachShader(this.shaderProgram, fragmentShader);
@@ -75,7 +77,7 @@ WebGL.prototype.setupWebGL = function(key, ObjCamera, PosMouseX, PosMouseY, PosM
     mat4.perspective(this.pMatrix, 1.04, this.gl.viewportWidth / this.gl.viewportHeight, 0.1, 1000.0);
     
     mat4.identity(this.mvMatrix);
-    mat4.lookAt(this.mvMatrix, [this.Obj_[ObjCamera]["x"]+ Math.sin(PosMouseX) * 25, this.Obj_[ObjCamera]["y"] + 10, this.Obj_[ObjCamera]["z"] + Math.cos(PosMouseX) * 25], [this.Obj_[ObjCamera]["x"], this.Obj_[ObjCamera]["y"], this.Obj_[ObjCamera]["z"]], [0,1,0]);
+    mat4.lookAt(this.mvMatrix, [this.Obj_[ObjCamera]["x"]+ PosMouseX, this.Obj_[ObjCamera]["y"] + PosMouseY, this.Obj_[ObjCamera]["z"] + PosMouseZ], [this.Obj_[ObjCamera]["x"], this.Obj_[ObjCamera]["y"], this.Obj_[ObjCamera]["z"]], [0,1,0]);
     
    // mat4.rotate(this.mvMatrix,this.mvMatrix, this.Obj_[key]["tx"], [1, 0, 0]); 
    // mat4.rotate(this.mvMatrix,this.mvMatrix, this.Obj_[key]["tz"], [0, 0, 1]); 
@@ -205,7 +207,18 @@ WebGL.prototype.handleTextureLoaded = function(image, texture)
 
 WebGL.prototype.InitGl = function(Texture_, Obj_)
 {
-        this.initShaders();
+      delete this.shaderProgram;
+      delete this.Obj_;
+    
+      this.shaderProgram = new Object();
+      this.Obj_ = new Object();
+      this.vertexBuffer = [];
+      this.indexBuffer = [];
+      this.textureCoordsBuffer = [];       
+      //this.texture = [];                     
+      this.m_pVertices = [];                               
+    
+       this.initShaders();
        
        if(Obj_){
        

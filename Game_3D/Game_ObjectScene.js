@@ -159,8 +159,8 @@ GameObjectScene.prototype.GameObjectSceneNumber_1 = function()
 GameObjectScene.prototype.GameObjectSceneNumber_2 = function()
 {
      this.ObjectData = {
-         name: "sfera",
-         way: "Object/sfera.obj",
+         name: "mapa",
+         way: "Object/111.obj",
          text: "111",
          x: 0,
          y: 0,
@@ -177,7 +177,28 @@ GameObjectScene.prototype.GameObjectSceneNumber_2 = function()
          hide: false
      };
      
-     this.ObjectSceneNumber_2["sfera"] = this.ObjectData;
+     this.ObjectSceneNumber_2["mapa"] = this.ObjectData;
+     
+     this.ObjectData = {
+         name: "Objects_",
+         way: "Object/Stena.obj",
+         text: "111",
+         x: 0,
+         y: 0,
+         z: 0,
+         tx: 0,
+         ty: 0,
+         tz: 0,
+         addx: 0,
+         addy: 0,
+         addz: 0,
+         addtx: 0,
+         addty: 0,
+         addtz: 0,
+         hide: false
+     };
+     
+     this.ObjectSceneNumber_2["Objects_"] = this.ObjectData;
      
      this.ObjectData = {
          name: "tank",
@@ -219,7 +240,7 @@ GameObjectScene.prototype.GameObjectSceneNumber_2 = function()
          hide: false
      };
      
-     this.ObjectSceneNumber_1["tower"] = this.ObjectData;
+     this.ObjectSceneNumber_2["tower"] = this.ObjectData;
      
      this.ObjectData = {
          name: "trunk",
@@ -240,7 +261,28 @@ GameObjectScene.prototype.GameObjectSceneNumber_2 = function()
          hide: false
      };
      
-     this.ObjectSceneNumber_1["trunk"] = this.ObjectData;
+     this.ObjectSceneNumber_2["trunk"] = this.ObjectData;
+     
+     this.ObjectData = {
+         name: "shar",
+         way: "Object/Shar1.obj",
+         text: "333",
+         x: 0,
+         y: 0.9,
+         z: 0,
+         tx: 0,
+         ty: 0,
+         tz: 0,
+         addx: 0,
+         addy: 0.9,
+         addz: 0,
+         addtx: 0,
+         addty: 0,
+         addtz: 0,
+         hide: false
+     };
+     
+     this.ObjectSceneNumber_2["shar"] = this.ObjectData;
 };
 
 GameObjectScene.prototype.GameObjectSceneNumber_3 = function()
@@ -349,4 +391,25 @@ GameObjectScene.prototype.GameObjectSceneNumber_3 = function()
      };
      
      this.ObjectSceneNumber_3["trunk"] = this.ObjectData;
+     
+     this.ObjectData = {
+         name: "shar",
+         way: "Object/Shar1.obj",
+         text: "333",
+         x: 0,
+         y: 0.9,
+         z: 0,
+         tx: 0,
+         ty: 0,
+         tz: 0,
+         addx: 0,
+         addy: 0.9,
+         addz: 0,
+         addtx: 0,
+         addty: 0,
+         addtz: 0,
+         hide: false
+     };
+     
+     this.ObjectSceneNumber_3["shar"] = this.ObjectData;
 };

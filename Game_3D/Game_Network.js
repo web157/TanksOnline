@@ -95,11 +95,23 @@ webSocket.onmessage = function(event){
         
         $("#idGameNumberServer").hide();
         
+        m_pGameMain.BlocMove = true;
+        
         m_pGameMain.InitalizeNumberScene(ArrData["NumberMapa"]);
         
-        m_pGameMain.InitalizeMapaCollision("mapa1");
         
-        m_pGameMain.InitalizeObjectCollision("Objects_");
+        
+        m_pGameMain.InitalizeMapaCollision(m_pGameMain.ListMapaObject[ArrData["NumberMapa"]]["mapa"]);
+        
+        m_pGameMain.InitalizeObjectCollision(m_pGameMain.ListMapaObject[ArrData["NumberMapa"]]["Obj"]);
+        
+        m_pGameMain.gl_.Obj_["tank"]["x"] = ArrData["ThisPositionObject"]["PosX"];
+        m_pGameMain.gl_.Obj_["tank"]["y"] = ArrData["ThisPositionObject"]["PosY"];
+        m_pGameMain.gl_.Obj_["tank"]["z"] = ArrData["ThisPositionObject"]["PosZ"];
+        
+        NewObjectPosition();
+        
+        MoveUser();
         
             if(typeof ArrData["ArrayDataUsers"] !=="undefined"){
 
@@ -152,10 +164,64 @@ webSocket.onmessage = function(event){
      
      if(typeof ArrData["DataShot"] !=="undefined"){
     
-        alert("Shot");
+        m_pGameMain.gl_.Obj_["tank"]["x"] = ArrData["ThisPositionObject"]["PosX"];
+        m_pGameMain.gl_.Obj_["tank"]["y"] = ArrData["ThisPositionObject"]["PosY"];
+        m_pGameMain.gl_.Obj_["tank"]["z"] = ArrData["ThisPositionObject"]["PosZ"];
+        
+        NewObjectPosition();
+        
+        MoveUser();
     
      }
      
+     if(typeof ArrData["DeleteUser"] !=="undefined"){
+    
+        delete m_pGameMain.NameObjectUser[ArrData["DeleteUser"]];
+        
+        delete m_pGameMain.gl_.Obj_[ArrData["DeleteUser"]];
+        
+        delete m_pGameMain.gl_.Obj_[ArrData["DeleteUser"] + "tower"];
+        
+        delete m_pGameMain.gl_.Obj_[ArrData["DeleteUser"] + "trunk"];
+    
+     }
+     
+      if(typeof ArrData["ErrSelServer"] !=="undefined"){
+    
+        alert("Комната заполнена");
+    
+      }
+     
+     
+     if(typeof ArrData["NewMapa"] !=="undefined"){
+    
+    
+        //m_pGameMain.ListMapaObject = [];
+        
+        m_pGameMain.InitalizeNumberScene(ArrData["NumberMapa"]);
+        
+        
+        
+        m_pGameMain.InitalizeMapaCollision(m_pGameMain.ListMapaObject[ArrData["NumberMapa"]]["mapa"]);
+        
+        m_pGameMain.InitalizeObjectCollision(m_pGameMain.ListMapaObject[ArrData["NumberMapa"]]["Obj"]);
+        
+        m_pGameMain.gl_.Obj_["tank"]["x"] = ArrData["ThisPositionObject"]["PosX"];
+        m_pGameMain.gl_.Obj_["tank"]["y"] = ArrData["ThisPositionObject"]["PosY"];
+        m_pGameMain.gl_.Obj_["tank"]["z"] = ArrData["ThisPositionObject"]["PosZ"];
+        
+        for (var x in ArrData["ListUsers"]){
+         
+            m_pGameMain.NewUser(x, ArrData["ListUsers"][x]);
+        
+        }
+        
+        NewObjectPosition();
+        
+        MoveUser();
+       
+    
+      }
         /*
         if(typeof ArrData["ArrayDataUsers"] !=="undefined"){
     

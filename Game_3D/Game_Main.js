@@ -11,10 +11,26 @@ function GameMain(gl)
       this.m_pCollision = new Collision();
       
       this.NameObjectUser = Array();
+      
+      this.BlocMove = false;
+      
+      this.ListMapaObject = Array();
 }
 
 GameMain.prototype.Initalize = function()
 {
+    this.ListMapaObject[1] = Array();
+    
+    this.ListMapaObject[1]["mapa"] = "mapa";
+    
+    this.ListMapaObject[1]["Obj"] = "Objects_";
+    
+    this.ListMapaObject[2] = Array();
+    
+    this.ListMapaObject[2]["mapa"] = "mapa1";
+    
+    this.ListMapaObject[2]["Obj"] = "Objects_";
+    
     this.ObjectScene.Initalize();
     
     this.TextureScene.Initalize();
@@ -137,4 +153,14 @@ GameMain.prototype.CollisionObjectsPosition = function(PosX, PosY, PosZ, PosTx, 
 GameMain.prototype.CollisionShot = function(PosX, PosY, PosZ)
 {
     return this.m_pCollision.ShotCollision(PosX, PosY, PosZ);
+};
+
+GameMain.prototype.CollisionPosCamera = function(PosX, PosY, PosZ)
+{
+    return this.m_pCollision.CollisionCamera(PosX, PosY, PosZ);
+};
+
+GameMain.prototype.CollisionPosObjectCamera = function(PosX, PosY, PosZ, PosX1, PosY1, PosZ1)
+{
+    return this.m_pCollision.CollisionObjectsCamera(PosX, PosY, PosZ, PosX1, PosY1, PosZ1);
 };

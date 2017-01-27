@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta charset="UTF-8">       
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script type="text/javascript" src="/TanksOnline/JavaScript/jQuery/jquery-1.6.2.js"></script>
         <link href="/TanksOnline/Style/StyleGame3D.css" rel="stylesheet" type="text/css">
         <script  type="text/javascript" src="/TanksOnline/JavaScript/Math/gl-matrix-min.js"></script>
         <script type="text/javascript" src="/TanksOnline/Game_3D/Game_Main.js"></script>
@@ -57,11 +57,18 @@
     
     <script type="text/javascript"> 
        
+      // var date = new Date();
+       var ResDate;   
+      //var Htime_1 = date.getMilliseconds();
+       //var Htime_2 = date.getMilliseconds();
+       
         var gl = new Object();
         
         var m_pGameMain = new Object();
 
-        var PosMouseX = 0;
+        var ResPosCamX = 0;
+        var ResPosCamY = 10;
+	var ResPosCamZ = -30;
 
         var canvas = document.getElementById("canvas3D");
 
@@ -92,9 +99,22 @@
             window.onload=function(){
 
                 (function animloop(){
-                                    
-                    m_pGameMain.RunScene(PosMouseX, 0, 0);
-                                                       
+                    
+                     //date = new Date();
+                     
+                    // Htime_1 += date.getMilliseconds();
+                        
+                     //ResDate = Htime_1 - Htime_2;
+                    var start = new Date();
+                        
+                    m_pGameMain.RunScene(ResPosCamX, ResPosCamY, ResPosCamZ);
+                    
+                    var end = new Date();
+                        
+                    ResDate = end.getTime() - start.getTime();    
+                       
+                   // Htime_2 = Htime_1;
+                        
                   requestAnimFrame(animloop, canvas);
                 })();
 

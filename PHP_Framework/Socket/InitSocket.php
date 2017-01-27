@@ -32,7 +32,7 @@ class Sosket_
    public function AsserpSocket()
    {
        $this->changed = $this->cls;
-       $this->val = @socket_select($this->changed,$write=NULL,$except=NULL,0);
+       $this->val = @socket_select($this->changed,$write=NULL,$except=NULL, 0);
        
        if($this->val > 0) {
            return true;
