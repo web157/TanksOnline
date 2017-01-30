@@ -52,7 +52,7 @@ GameObjectScene.prototype.GameObjectSceneNumber_1 = function()
      
      this.ObjectData = {
          name: "Objects_",
-         way: "Object/Object.obj",
+         way: "Object/kub1.obj",
          text: "111",
          x: 0,
          y: 0,
@@ -181,7 +181,7 @@ GameObjectScene.prototype.GameObjectSceneNumber_2 = function()
      
      this.ObjectData = {
          name: "Objects_",
-         way: "Object/Stena.obj",
+         way: "Object/kub1.obj",
          text: "111",
          x: 0,
          y: 0,
@@ -279,10 +279,73 @@ GameObjectScene.prototype.GameObjectSceneNumber_2 = function()
          addtx: 0,
          addty: 0,
          addtz: 0,
-         hide: false
+         hide: true
      };
      
      this.ObjectSceneNumber_2["shar"] = this.ObjectData;
+     
+     this.ObjectData = {
+         name: "Bang",
+         way: "Object/Bang.obj",
+         text: "Bang",
+         x: 0,
+         y: 0.9,
+         z: 0,
+         tx: 0,
+         ty: 0,
+         tz: 0,
+         addx: 0,
+         addy: 0.9,
+         addz: 0,
+         addtx: 0,
+         addty: 0,
+         addtz: 0,
+         hide: true
+     };
+     
+     this.ObjectSceneNumber_2["Bang"] = this.ObjectData;
+     
+     this.ObjectData = {
+         name: "BigBang",
+         way: "Object/BigBang.obj",
+         text: "Bang",
+         x: 0,
+         y: 0.9,
+         z: 0,
+         tx: 0,
+         ty: 0,
+         tz: 0,
+         addx: 0,
+         addy: 0.9,
+         addz: 0,
+         addtx: 0,
+         addty: 0,
+         addtz: 0,
+         hide: true
+     };
+     
+     this.ObjectSceneNumber_2["BigBang"] = this.ObjectData;
+     
+     this.ObjectData = {
+         name: "TankBang",
+         way: "Object/TankBang.obj",
+         text: "Bang",
+         x: 0,
+         y: 0.9,
+         z: 0,
+         tx: 0,
+         ty: 0,
+         tz: 0,
+         addx: 0,
+         addy: 0.9,
+         addz: 0,
+         addtx: 0,
+         addty: 0,
+         addtz: 0,
+         hide: true
+     };
+     
+     this.ObjectSceneNumber_2["TankBang"] = this.ObjectData;
 };
 
 GameObjectScene.prototype.GameObjectSceneNumber_3 = function()
@@ -310,7 +373,7 @@ GameObjectScene.prototype.GameObjectSceneNumber_3 = function()
      
      this.ObjectData = {
          name: "Objects_",
-         way: "Object/Object.obj",
+         way: "Object/kub1.obj",
          text: "111",
          x: 0,
          y: 0,
@@ -408,8 +471,71 @@ GameObjectScene.prototype.GameObjectSceneNumber_3 = function()
          addtx: 0,
          addty: 0,
          addtz: 0,
-         hide: false
+         hide: true
      };
      
      this.ObjectSceneNumber_3["shar"] = this.ObjectData;
+     
+      this.ObjectData = {
+         name: "Bang",
+         way: "Object/Bang.obj",
+         text: "Bang",
+         x: 0,
+         y: 0.9,
+         z: 0,
+         tx: 0,
+         ty: 0,
+         tz: 0,
+         addx: 0,
+         addy: 0.9,
+         addz: 0,
+         addtx: 0,
+         addty: 0,
+         addtz: 0,
+         hide: true
+     };
+     
+     this.ObjectSceneNumber_3["Bang"] = this.ObjectData;
+     
+     this.ObjectData = {
+         name: "BigBang",
+         way: "Object/BigBang.obj",
+         text: "Bang",
+         x: 0,
+         y: 0.9,
+         z: 0,
+         tx: 0,
+         ty: 0,
+         tz: 0,
+         addx: 0,
+         addy: 0.9,
+         addz: 0,
+         addtx: 0,
+         addty: 0,
+         addtz: 0,
+         hide: true
+     };
+     
+     this.ObjectSceneNumber_3["BigBang"] = this.ObjectData;
+     
+     this.ObjectData = {
+         name: "TankBang",
+         way: "Object/TankBang.obj",
+         text: "Bang",
+         x: 0,
+         y: 0.9,
+         z: 0,
+         tx: 0,
+         ty: 0,
+         tz: 0,
+         addx: 0,
+         addy: 0.9,
+         addz: 0,
+         addtx: 0,
+         addty: 0,
+         addtz: 0,
+         hide: true
+     };
+     
+     this.ObjectSceneNumber_3["TankBang"] = this.ObjectData;
 };

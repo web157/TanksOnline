@@ -5,7 +5,7 @@
     <a href='/TanksOnline/Game3D.php'>Играть</a>
   
     <?php
-    echo time();
+   // echo time();
     ?>
     
 </HTML>

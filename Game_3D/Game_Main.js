@@ -123,6 +123,69 @@ GameMain.prototype.NewUser = function(NameUser, IdKey)
      };
      
      this.gl_.NewObject(NewObjectData, NameUser + "trunk");
+     
+     var NewObjectData = {
+         name: "Bang",
+         way: "Object/Bang.obj",
+         text: "Bang",
+         x: 0,
+         y: 0,
+         z: 0,
+         tx: 0,
+         ty: 0,
+         tz: 0,
+         addx: 0,
+         addy: 0.5,
+         addz: 0,
+         addtx: 0,
+         addty: 0,
+         addtz: 0,
+         hide: true
+     };
+            
+     this.gl_.NewObject(NewObjectData, NameUser + "Bang");
+     
+     var NewObjectData = {
+         name: "BigBang",
+         way: "Object/BigBang.obj",
+         text: "Bang",
+         x: 0,
+         y: 0,
+         z: 0,
+         tx: 0,
+         ty: 0,
+         tz: 0,
+         addx: 0,
+         addy: 0.5,
+         addz: 0,
+         addtx: 0,
+         addty: 0,
+         addtz: 0,
+         hide: true
+     };
+            
+     this.gl_.NewObject(NewObjectData, NameUser + "BigBang");
+     
+     var NewObjectData = {
+         name: "TankBang",
+         way: "Object/TankBang.obj",
+         text: "Bang",
+         x: 0,
+         y: 0,
+         z: 0,
+         tx: 0,
+         ty: 0,
+         tz: 0,
+         addx: 0,
+         addy: 0.5,
+         addz: 0,
+         addtx: 0,
+         addty: 0,
+         addtz: 0,
+         hide: true
+     };
+            
+     this.gl_.NewObject(NewObjectData, NameUser + "TankBang");
 };
 
 GameMain.prototype.DelUser = function(NameUser)
@@ -160,7 +223,7 @@ GameMain.prototype.CollisionPosCamera = function(PosX, PosY, PosZ)
     return this.m_pCollision.CollisionCamera(PosX, PosY, PosZ);
 };
 
-GameMain.prototype.CollisionPosObjectCamera = function(PosX, PosY, PosZ, PosX1, PosY1, PosZ1)
+GameMain.prototype.CollisionPosObjectCamera = function(PosX, PosY, PosZ, PosLx, PosLz, PosX1, PosY1, PosZ1)
 {
-    return this.m_pCollision.CollisionObjectsCamera(PosX, PosY, PosZ, PosX1, PosY1, PosZ1);
+    return this.m_pCollision.CollisionObjectsCamera(PosX, PosY, PosZ, PosLx, PosLz, PosX1, PosY1, PosZ1);
 };

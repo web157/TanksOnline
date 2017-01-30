@@ -25,10 +25,12 @@ GameTextureScene.prototype.GameTextureSceneNumber_1 = function()
 {
     this.TextureSceneNumber_1["111"] = "Texture/111.png";
     this.TextureSceneNumber_1["333"] = "Texture/333z.png";
+    this.TextureSceneNumber_1["Bang"] = "Texture/Bang.png";
 };
 
 GameTextureScene.prototype.GameTextureSceneNumber_2 = function()
 {
     this.TextureSceneNumber_2["111"] = "Texture/111.png";
     this.TextureSceneNumber_2["333"] = "Texture/333z.png";
+    this.TextureSceneNumber_1["Bang"] = "Texture/Bang.png";
 };

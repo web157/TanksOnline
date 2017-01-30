@@ -356,17 +356,49 @@ while(true){
                             
                             $TempDataShot["DataShot"] = "DataShot";
                             
-                            $TempDataShot["ThisPositionObject"] = array();
+                            $TempThisDataShot["DataShot"] = "DataShot";
+                          //  $TempDataShot["ThisPositionObject"] = array();
                         
-                            $tempRand = rand(0, 2);
+                          //  $tempRand = rand(0, 2);
                             
-                            $TempDataShot["ThisPositionObject"]["PosX"] = $m_pNumberMapa[$m_aUserData[$sock]->NumberServer]->MapaPosition[$TempData1["NumberMapa"]][$tempRand]["PosX"];
-                            $TempDataShot["ThisPositionObject"]["PosY"] = $m_pNumberMapa[$m_aUserData[$sock]->NumberServer]->MapaPosition[$TempData1["NumberMapa"]][$tempRand]["PosY"]; 
-                            $TempDataShot["ThisPositionObject"]["PosZ"] = $m_pNumberMapa[$m_aUserData[$sock]->NumberServer]->MapaPosition[$TempData1["NumberMapa"]][$tempRand]["PosZ"]; 
+                          //  $TempDataShot["ThisPositionObject"]["PosX"] = $m_pNumberMapa[$m_aUserData[$sock]->NumberServer]->MapaPosition[$TempData1["NumberMapa"]][$tempRand]["PosX"];
+                          //  $TempDataShot["ThisPositionObject"]["PosY"] = $m_pNumberMapa[$m_aUserData[$sock]->NumberServer]->MapaPosition[$TempData1["NumberMapa"]][$tempRand]["PosY"]; 
+                           // $TempDataShot["ThisPositionObject"]["PosZ"] = $m_pNumberMapa[$m_aUserData[$sock]->NumberServer]->MapaPosition[$TempData1["NumberMapa"]][$tempRand]["PosZ"]; 
                         
                             
-                            @socket_write($m_aUserData[$ArrD["IdSock"]]->ThisSocket,($sock_->encode(json_encode($TempDataShot))));
+                           // @socket_write($m_aUserData[$ArrD["IdSock"]]->ThisSocket,($sock_->encode(json_encode($TempDataShot))));
+                            //////////////////////////////////////////////////////////////
+                            foreach ($m_aUserData as $key=>$value) {                                            
+                             
+                            if($key != $m_aUserData[$ArrD["IdSock"]]->ThisSocket){
+                                                
+                                if($m_aUserData[$m_aUserData[$ArrD["IdSock"]]->ThisSocket]->NumberServer == $m_aUserData[$key]->NumberServer){
+                               
+                                    $TempDataShot["NameUser"] = $m_aUserData[$m_aUserData[$ArrD["IdSock"]]->ThisSocket]->NameUser;
+                                    
+                                        @socket_write($sock_->cls[$key],($sock_->encode(json_encode($TempDataShot))));
+                                
+                                }
                             
+                            }else{
+                                
+                                $TempThisDataShot["ThisNameUser"] = "ThisNameUser";
+                                
+                                $TempThisDataShot["ThisPositionObject"] = array();
+                        
+                                $tempRand = rand(0, 2);
+                            
+                                $TempThisDataShot["ThisPositionObject"]["PosX"] = $m_pNumberMapa[$m_aUserData[$sock]->NumberServer]->MapaPosition[$TempData1["NumberMapa"]][$tempRand]["PosX"];
+                                $TempThisDataShot["ThisPositionObject"]["PosY"] = $m_pNumberMapa[$m_aUserData[$sock]->NumberServer]->MapaPosition[$TempData1["NumberMapa"]][$tempRand]["PosY"]; 
+                                $TempThisDataShot["ThisPositionObject"]["PosZ"] = $m_pNumberMapa[$m_aUserData[$sock]->NumberServer]->MapaPosition[$TempData1["NumberMapa"]][$tempRand]["PosZ"]; 
+                        
+                                
+                                 @socket_write($m_aUserData[$ArrD["IdSock"]]->ThisSocket,($sock_->encode(json_encode($TempThisDataShot))));
+                            }
+                         
+                        } 
+                            
+                            //////////////////////////////////////////////////////////////
                         }
                         
                     //}
@@ -381,6 +413,42 @@ while(true){
                          
                   //}  
                   
+                 
+                 if(isset($ArrD["DataClicShot"])){
+                        
+                     $TempArrDataClicShot = array();
+                     
+                     $TempArrDataClicShot["ArrDataClicShot"] = "DataClicShot";
+                     
+                     $TempArrDataClicShot["NameUser"] = $m_aUserData[$sock]->NameUser;
+                     
+                     $TempArrDataClicShot["BangTx"] = $ArrD["BangTx"];
+                     $TempArrDataClicShot["BangTy"] = $ArrD["BangTy"];
+                     $TempArrDataClicShot["BangTz"] = $ArrD["BangTz"];
+                     $TempArrDataClicShot["BangX"] = $ArrD["BangX"];
+                     $TempArrDataClicShot["BangY"] = $ArrD["BangY"];
+                     $TempArrDataClicShot["BangZ"] = $ArrD["BangZ"];
+                     
+                     $TempArrDataClicShot["BigBangX"] = $ArrD["BigBangX"];
+                     $TempArrDataClicShot["BigBangY"] = $ArrD["BigBangY"];
+                     $TempArrDataClicShot["BigBangZ"] = $ArrD["BigBangZ"];
+                     
+                        foreach ($m_aUserData as $key=>$value) {                                            
+                             
+                            if($key != $sock){
+                                                
+                                if($m_aUserData[$sock]->NumberServer == $m_aUserData[$key]->NumberServer){
+                               
+                                        @socket_write($sock_->cls[$key],($sock_->encode(json_encode($TempArrDataClicShot))));
+                                
+                                }
+                            
+                            }
+                         
+                        } 
+                     
+                 }
+                 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////                    

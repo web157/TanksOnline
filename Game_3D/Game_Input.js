@@ -151,7 +151,7 @@ function handleKeyDown(e){
     
     function handleMouseDown(e){
         
-        //if(m_pGameMain.BlocMove){
+        if(m_pGameMain.BlocMove){
         
         /*
             temp = e.clientX;
@@ -218,15 +218,19 @@ function handleKeyDown(e){
             ResPosCamY = CamRes;
             
         }
-        
-        var CamDataRes = m_pGameMain.CollisionPosObjectCamera(ResPosCamX, ResPosCamY, ResPosCamZ, 
+               
+        var ResLPosZ = (Math.sin(ugol) * Math.cos(ugol2));
+        var ResLPosX = -((Math.sin(ugol) * Math.sin(ugol2)));
+            
+        //alert(ResCamPosTy);
+        var CamDataRes = m_pGameMain.CollisionPosObjectCamera(ResPosCamX, ResPosCamY, ResPosCamZ, ResLPosX, ResLPosZ, 
         m_pGameMain.gl_.Obj_["tank"]["x"], m_pGameMain.gl_.Obj_["tank"]["y"], m_pGameMain.gl_.Obj_["tank"]["z"]);        
         
         ResPosCamX = CamDataRes["PosX"];
         ResPosCamZ = CamDataRes["PosZ"];
         
         
-        //}
+        }
     }
     
     function ClicShot(){
@@ -288,7 +292,7 @@ function handleKeyDown(e){
 
 				
 				if (Distance <= Radius1){
-					
+					                                                                                
                                         //alert(m_pGameMain.NameObjectUser[key]);
 					ShotTrue(m_pGameMain.NameObjectUser[key]);
                                         
@@ -308,6 +312,8 @@ function handleKeyDown(e){
                      ///////////////////////////////////////
 ////////////////////////////////////////
                      for (var key in m_pGameMain.NameObjectUser){
+                         
+                         if(!m_pGameMain.gl_.Obj_[key]["hide"]){
                          
                                 var XDiff;
 				var YDiff;
@@ -347,12 +353,22 @@ function handleKeyDown(e){
 				 
 				if (Distance <= Radius1){
 					
+                                        //m_pGameMain.gl_.Obj_[key]["hide"] = true;
+                                        
+                                       // m_pGameMain.gl_.Obj_[key]["TankBang"] = m_pGameMain.gl_.Obj_[key]["x"];
+                                       // m_pGameMain.gl_.Obj_[key]["TankBang"] = m_pGameMain.gl_.Obj_[key]["y"];
+                                       // m_pGameMain.gl_.Obj_[key]["TankBang"] = m_pGameMain.gl_.Obj_[key]["z"];
+                                        
+                                       // m_pGameMain.gl_.Obj_[key]["TankBang"] = false;
+                                        
                                         //alert(m_pGameMain.NameObjectUser[key]);
 					ShotTrue(m_pGameMain.NameObjectUser[key]);
                                         
 					return;
 					
 				}
+                                
+                          }  
           
                      }
 ///////////////////////////////////////////////
@@ -368,15 +384,54 @@ function handleKeyDown(e){
     function handleMouseClic(e){
        
        if(e.which == 1){
-           
+          
            if(m_pGameMain.BlocMove){
-           
-                ClicShot();
-                
+           tempshot = 1; 
+                m_pGameMain.gl_.Obj_["Bang"]["hide"] = false;
+                m_pGameMain.gl_.Obj_["shar"]["hide"] = false;
+
+                m_pGameMain.gl_.Obj_["Bang"]["z"] = m_pGameMain.gl_.Obj_["tower"]["z"];
+                m_pGameMain.gl_.Obj_["Bang"]["x"] = m_pGameMain.gl_.Obj_["tower"]["x"];
+                m_pGameMain.gl_.Obj_["Bang"]["y"] = m_pGameMain.gl_.Obj_["tower"]["y"] + 0.2;
+
+                m_pGameMain.gl_.Obj_["Bang"]["ty"] = m_pGameMain.gl_.Obj_["tower"]["ty"];
+                m_pGameMain.gl_.Obj_["Bang"]["tz"] = m_pGameMain.gl_.Obj_["tower"]["tz"];
+                m_pGameMain.gl_.Obj_["Bang"]["tx"] = m_pGameMain.gl_.Obj_["trunk"]["tx"];
+
+                m_pGameMain.gl_.Obj_["Bang"]["z"] += Math.cos(m_pGameMain.gl_.Obj_["tower"]["ty"]) * 4.5;
+                m_pGameMain.gl_.Obj_["Bang"]["x"] += Math.sin(m_pGameMain.gl_.Obj_["tower"]["ty"]) * 4.5;
+                m_pGameMain.gl_.Obj_["Bang"]["y"] -= Math.sin(m_pGameMain.gl_.Obj_["trunk"]["tx"]) * 4.5;
+
+
+
+                     ClicShot();
+                     
+                     ClicDataShot();
+
+                setTimeout(sleep, 100);
+                         //  m_pGameMain.gl_.Obj_["Bang"]["hide"] = true;
+
            }
-        
        }
        
     }
 
 
+    function sleep()
+    {
+         m_pGameMain.gl_.Obj_["Bang"]["hide"] = true;
+         
+            m_pGameMain.gl_.Obj_["BigBang"]["hide"] = false;
+           
+           m_pGameMain.gl_.Obj_["BigBang"]["z"] = m_pGameMain.gl_.Obj_["shar"]["z"];
+           m_pGameMain.gl_.Obj_["BigBang"]["x"] = m_pGameMain.gl_.Obj_["shar"]["x"];
+           m_pGameMain.gl_.Obj_["BigBang"]["y"] = m_pGameMain.gl_.Obj_["shar"]["y"] - 0.5;
+           
+           setTimeout(sleep1, 300);
+    }
+
+    function sleep1()
+    {
+        m_pGameMain.gl_.Obj_["BigBang"]["hide"] = true;
+        m_pGameMain.gl_.Obj_["shar"]["hide"] = true;
+    }
