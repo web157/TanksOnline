@@ -27,6 +27,12 @@
             ?>
         </div>
         
+        <div id ="idChat">
+            
+        </div>
+        
+        <p><input id="idInputChat" type="text" name="idInputChat" size="32" required=" " /></p>
+        
         <canvas id="canvas3D">Ваш браузер не поддерживает элемент canvas</canvas>
   
         <script id="shader-fs" type="x-shader/x-fragment">
@@ -56,12 +62,9 @@
         </script>
     
     <script type="text/javascript"> 
-       
-      // var date = new Date();
+           
        var ResDate;   
-      //var Htime_1 = date.getMilliseconds();
-       //var Htime_2 = date.getMilliseconds();
-       
+     
         var gl = new Object();
         
         var m_pGameMain = new Object();
@@ -99,12 +102,7 @@
             window.onload=function(){
 
                 (function animloop(){
-                    
-                     //date = new Date();
-                     
-                    // Htime_1 += date.getMilliseconds();
-                        
-                     //ResDate = Htime_1 - Htime_2;
+                                     
                     var start = new Date();
                         
                     m_pGameMain.RunScene(ResPosCamX, ResPosCamY, ResPosCamZ);
@@ -112,9 +110,7 @@
                     var end = new Date();
                         
                     ResDate = end.getTime() - start.getTime();    
-                       
-                   // Htime_2 = Htime_1;
-                        
+                                                              
                   requestAnimFrame(animloop, canvas);
                 })();
 

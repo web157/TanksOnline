@@ -153,7 +153,9 @@ while(true){
                             $m_aUserData[$sock]->Authorization = true;
                             
                             $TempData["Authorization"] = true;
-                                                       
+                                    
+                            $TempData["ThisUserName"] = $row["full_name"];
+                            
                             @socket_write($sock,($sock_->encode(json_encode($TempData))));
                             
                             continue;
@@ -448,6 +450,33 @@ while(true){
                         } 
                      
                  }
+                 
+                 
+                 if(isset($ArrD["InputTextChat"])){
+                     
+                     $TempOutTextChat["OutTextChat"] = "OutTextChat";
+                     
+                     $TempOutTextChat["OutTextName"] = $m_aUserData[$sock]->NameUser;
+                     
+                     $TempOutTextChat["OutFullText"] = $ArrD["InputTextChat"];
+                     
+                     foreach ($m_aUserData as $key=>$value) {                                            
+                             
+                            if($key != $sock){
+                                                
+                                if($m_aUserData[$sock]->NumberServer == $m_aUserData[$key]->NumberServer){
+                               
+                                        @socket_write($sock_->cls[$key],($sock_->encode(json_encode($TempOutTextChat))));
+                                
+                                }
+                            
+                            }
+                         
+                        } 
+                     
+                     
+                 }
+                 
                  
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

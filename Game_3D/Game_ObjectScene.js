@@ -181,7 +181,7 @@ GameObjectScene.prototype.GameObjectSceneNumber_2 = function()
      
      this.ObjectData = {
          name: "Objects_",
-         way: "Object/kub1.obj",
+         way: "Object/Stena.obj",
          text: "111",
          x: 0,
          y: 0,

@@ -14,7 +14,9 @@ function WebGL(gl)
       this.mvMatrix = mat4.create(); 
       this.pMatrix = mat4.create();
           
-       this.m_pVertices = Array();   
+       this.m_pVertices = Array(); 
+       
+       this.m_pNormals = Array();
           
       this.Obj_ = new Object();              
 }
@@ -78,13 +80,10 @@ WebGL.prototype.setupWebGL = function(key, ObjCamera, PosMouseX, PosMouseY, PosM
     
     mat4.identity(this.mvMatrix);
     mat4.lookAt(this.mvMatrix, [this.Obj_[ObjCamera]["x"]+ PosMouseX, this.Obj_[ObjCamera]["y"] + PosMouseY, this.Obj_[ObjCamera]["z"] + PosMouseZ], [this.Obj_[ObjCamera]["x"], this.Obj_[ObjCamera]["y"], this.Obj_[ObjCamera]["z"]], [0,1,0]);
-    
-   // mat4.rotate(this.mvMatrix,this.mvMatrix, this.Obj_[key]["tx"], [1, 0, 0]); 
-   // mat4.rotate(this.mvMatrix,this.mvMatrix, this.Obj_[key]["tz"], [0, 0, 1]); 
-   // mat4.rotate(this.mvMatrix,this.mvMatrix, this.Obj_[key]["ty"], [0, 1, 0]); 
+       
     mat4.translate(this.mvMatrix,this.mvMatrix,[this.Obj_[key]["x"], this.Obj_[key]["y"], this.Obj_[key]["z"]]);
     mat4.rotate(this.mvMatrix,this.mvMatrix, this.Obj_[key]["ty"], [0, 1, 0]); 
-     mat4.rotate(this.mvMatrix,this.mvMatrix, this.Obj_[key]["tx"], [1, 0, 0]); 
+    mat4.rotate(this.mvMatrix,this.mvMatrix, this.Obj_[key]["tx"], [1, 0, 0]); 
     mat4.rotate(this.mvMatrix,this.mvMatrix, this.Obj_[key]["tz"], [0, 0, 1]); 
 };
 
@@ -94,6 +93,8 @@ WebGL.prototype.initBuffers = function(key, way)
  var vertices = Array();
  
  var indices = Array();
+ 
+ var normals = Array();
  
  var textureCoords = Array();
             
@@ -125,9 +126,22 @@ WebGL.prototype.initBuffers = function(key, way)
                    url: "LoadGeometry.php",
                    data: {fname:"Text", ffile:way},
                    success: function(data) {
-                   textureCoords = $.parseJSON(data);                  
+                   textureCoords = $.parseJSON(data); 
                    }
                });
+               
+               $.ajax({
+                   async: false,
+                   type: "POST",
+                   url: "LoadGeometry.php",
+                   data: {fname:"Norm", ffile:way},
+                   success: function(data) {
+                   normals = $.parseJSON(data);  
+                   }
+               });
+     
+  this.m_pNormals[key] = Array();
+  this.m_pNormals[key] = normals;
      
   this.m_pVertices[key] = Array();
   this.m_pVertices[key] = vertices;
@@ -269,7 +283,11 @@ WebGL.prototype.DelObject = function(key)
 };
 
 WebGL.prototype.GetVert = function(NameBuffer)
-{
-    //document.write(JSON.stringify(this.m_pVertices[NameBuffer]));
+{  
     return this.m_pVertices[NameBuffer];
+};
+
+WebGL.prototype.GetNorm = function(NameBuffer)
+{
+    return this.m_pNormals[NameBuffer];
 };

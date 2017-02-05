@@ -16,14 +16,19 @@ $File_ = $_POST['ffile'];
    $vertexX = array();
    $vertexY = array(); 
    $vertexZ = array(); 
+   $normalX = array();
+   $normalY = array(); 
+   $normalZ = array(); 
    $index = array();
    $textureu = array(); 
    $texturev = array(); 
    $indexTex = array();
+   $indexNorm = array();
    
    $vertexData = array();
    $indexData = array();
    $textureData = array();
+   $normalData = array();
    
   while (!feof($fp)) {
    
@@ -35,6 +40,13 @@ $File_ = $_POST['ffile'];
                 array_push($vertexX, $pieces[2]);
                 array_push($vertexY, $pieces[3]);
                 array_push($vertexZ, $pieces[4]);
+            
+            }
+            
+            if($pieces[0] == "vn"){
+                array_push($normalX, $pieces[1]);
+                array_push($normalY, $pieces[2]);
+                array_push($normalZ, $pieces[3]);
             
             }
 
@@ -55,11 +67,14 @@ $File_ = $_POST['ffile'];
                 array_push($index, ($Indv1[0] - 1));
                 array_push($index, ($Indv2[0] - 1));
                 
-                 array_push($indexTex, ($Indv[1] - 1));
+                array_push($indexTex, ($Indv[1] - 1));
                 array_push($indexTex, ($Indv1[1] - 1));
                 array_push($indexTex, ($Indv2[1] - 1));
                
-            
+                array_push($indexNorm, ($Indv[2] - 1));
+                array_push($indexNorm, ($Indv1[2] - 1));
+                array_push($indexNorm, ($Indv2[2] - 1));
+                
             }     
    
    }
@@ -101,6 +116,22 @@ $File_ = $_POST['ffile'];
    $Data = json_encode($indexData);
    
    echo $Data;
+   }
+   
+   if($name == "Norm"){
+       
+       for($i = 0; $i < count($indexNorm); $i++){
+        array_push($normalData, $normalX[$indexNorm[$i]]);
+        array_push($normalData, $normalY[$indexNorm[$i]]);
+        array_push($normalData, $normalZ[$indexNorm[$i]]);
+      
+   
+       }
+   
+       $Data = json_encode($normalData);
+   
+       echo $Data;
+       
    }
    
    fclose($fp);

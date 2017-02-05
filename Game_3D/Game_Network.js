@@ -88,7 +88,31 @@ function ClicDataShot(){
     ArrDataClicShot["BigBangZ"] = m_pGameMain.gl_.Obj_["BigBang"]["z"];
     
     webSocket.send(JSON.stringify(ArrDataClicShot));
-}     
+}   
+
+function DataTextChat(){
+    
+    var DataText = "<span><span id='idTextName'>" + m_pGameMain.ThisUserName + " : </span> ";
+    
+    DataText += "<span id='idTextFull'>" + $("#idInputChat").val() + "</span></span> ";    
+
+    DataText += "</br>";
+
+    $('#idChat').append(DataText);
+    
+    var block = document.getElementById("idChat");
+    block.scrollTop = block.scrollHeight;
+
+    var ArrTextChat = new Object();
+
+    ArrTextChat["InputTextChat"] = $("#idInputChat").val();
+       
+    webSocket.send(JSON.stringify(ArrTextChat));
+       
+    document.getElementById("idInputChat").value='';
+    
+    $("#idInputChat").hide();
+}
       
 webSocket.onmessage = function(event){
           
@@ -102,6 +126,8 @@ webSocket.onmessage = function(event){
     
         if(ArrData["Authorization"]){
 
+            m_pGameMain.ThisUserName = ArrData["ThisUserName"];
+                
             $("#idGameFormAuthorization").hide();
 
             $("#idGameNumberServer").show();
@@ -113,6 +139,8 @@ webSocket.onmessage = function(event){
      if(typeof ArrData["StatGameServer"] !== "undefined"){
         
         $("#idGameNumberServer").hide();
+        
+        $("#idChat").show();
         
         m_pGameMain.BlocMove = true;
         
@@ -182,15 +210,7 @@ webSocket.onmessage = function(event){
      }
      
      if(typeof ArrData["DataShot"] !=="undefined"){
-    
-       // m_pGameMain.gl_.Obj_["tank"]["x"] = ArrData["ThisPositionObject"]["PosX"];
-       // m_pGameMain.gl_.Obj_["tank"]["y"] = ArrData["ThisPositionObject"]["PosY"];
-       // m_pGameMain.gl_.Obj_["tank"]["z"] = ArrData["ThisPositionObject"]["PosZ"];
-        
-       // NewObjectPosition();
-        
-       // MoveUser();
-       
+          
             if(typeof ArrData["NameUser"] !=="undefined"){
                 
                 m_pGameMain.gl_.Obj_[ArrData["NameUser"]]["hide"] = true;
@@ -202,8 +222,7 @@ webSocket.onmessage = function(event){
                 m_pGameMain.gl_.Obj_[ArrData["NameUser"] + "TankBang"]["z"] = m_pGameMain.gl_.Obj_[ArrData["NameUser"]]["z"];
                 
                 m_pGameMain.gl_.Obj_[ArrData["NameUser"] + "TankBang"]["hide"] = false;
-
-                //setTimeout(fShotUser(ArrData["NameUser"]), 500);
+              
                 setTimeout(function(){
                     fShotUser(ArrData["NameUser"]);
                     }, 500);
@@ -226,7 +245,7 @@ webSocket.onmessage = function(event){
                 var x = ArrData["ThisPositionObject"]["PosX"];
                 var y = ArrData["ThisPositionObject"]["PosY"];
                 var z = ArrData["ThisPositionObject"]["PosZ"];
-                //setTimeout(fShotThisUser, 500);
+                
                 setTimeout(function(){
                     fShotThisUser(x, y, z);
                     }, 500);
@@ -255,9 +274,7 @@ webSocket.onmessage = function(event){
      
      
      if(typeof ArrData["NewMapa"] !=="undefined"){
-    
-    
-        //m_pGameMain.ListMapaObject = [];
+               
         
         m_pGameMain.InitalizeNumberScene(ArrData["NumberMapa"]);
         
@@ -300,23 +317,29 @@ webSocket.onmessage = function(event){
             m_pGameMain.gl_.Obj_[ArrData["NameUser"] + "BigBang"]["y"] = ArrData["BigBangY"];
             
             m_pGameMain.gl_.Obj_[ArrData["NameUser"] + "Bang"]["hide"] = false;
-    
-            //setTimeout(ClicBang, 100);
+               
              setTimeout(function(){
                     ClicBang(ArrData["NameUser"]);
                     }, 100);
             
       }
-        /*
-        if(typeof ArrData["ArrayDataUsers"] !=="undefined"){
+      
+      
+      if(typeof ArrData["OutTextChat"] !=="undefined"){
+          
+            var DataText = "<span><span id='idTextName'>" + ArrData["OutTextName"] + " : </span> ";
     
-            for (var x in ArrData["ArrayDataUsers"]){
-                alert(ArrData["ArrayDataUsers"][x]["PosX"]);
-            }
-       
-        }
-        */
-      // m_pGameMain.InitalizeNumberScene(ArrData);
+            DataText += "<span id='idTextFull'>" + ArrData["OutFullText"] + "</span></span> ";    
+
+            DataText += "</br>";
+
+            $('#idChat').append(DataText);
+
+            var block = document.getElementById("idChat");
+            block.scrollTop = block.scrollHeight;
+          
+      }
+            
 }
 
 function fShotUser(nUser){
@@ -331,9 +354,9 @@ function fShotUser(nUser){
 
 function fShotThisUser(x, y, z){
     
-     m_pGameMain.gl_.Obj_["tank"]["x"] = x;//ArrData["ThisPositionObject"]["PosX"];
-     m_pGameMain.gl_.Obj_["tank"]["y"] = y;//ArrData["ThisPositionObject"]["PosY"];
-     m_pGameMain.gl_.Obj_["tank"]["z"] = z;//ArrData["ThisPositionObject"]["PosZ"];
+     m_pGameMain.gl_.Obj_["tank"]["x"] = x;
+     m_pGameMain.gl_.Obj_["tank"]["y"] = y;
+     m_pGameMain.gl_.Obj_["tank"]["z"] = z;
         
     m_pGameMain.gl_.Obj_["TankBang"]["hide"] = true;
     
@@ -354,7 +377,6 @@ function ClicBang(nUser){
          
       m_pGameMain.gl_.Obj_[nUser +"BigBang"]["hide"] = false;
     
-      //setTimeout(ClicBigBang, 300);
             setTimeout(function(){
                     ClicBigBang(nUser);
                     }, 500);
