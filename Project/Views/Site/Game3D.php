@@ -33,6 +33,8 @@
         
         <p><input id="idInputChat" type="text" name="idInputChat" size="32" required=" " /></p>
         
+        <audio src="/TanksOnline/Sound/bang.wav" autoplay="autoplay"></audio>
+        
         <canvas id="canvas3D">Ваш браузер не поддерживает элемент canvas</canvas>
   
         <script id="shader-fs" type="x-shader/x-fragment">
@@ -89,6 +91,7 @@
         if(gl){
             
             document.addEventListener('keydown', handleKeyDown, false);
+            document.addEventListener('keyup', handleKeyUp, false);
             document.addEventListener('mousemove', handleMouseDown, false);
             document.addEventListener('mousedown', handleMouseClic, false);
           
@@ -104,7 +107,11 @@
                 (function animloop(){
                                      
                     var start = new Date();
-                        
+                     
+                    if(KeyW || KeyS || KeyA || KeyD || KeyQ || KeyE || KeyR || KeyF){
+                        InputKey();
+                    }
+                     
                     m_pGameMain.RunScene(ResPosCamX, ResPosCamY, ResPosCamZ);
                     
                     var end = new Date();

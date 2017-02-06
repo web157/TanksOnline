@@ -1,33 +1,51 @@
 /* global m_pGameMain */
 /* global PosMouseX, ResDate */
 
+var AudioMove = new Audio();
+
+var AudioTower = new Audio();
+
+var AudioPaix = new Audio();
+AudioPaix.src = '/TanksOnline/Sound/st.mp3';
+AudioPaix.volume=0.2;
+AudioPaix.loop = true; 
+
+function soundClick() {
+  var audio = new Audio();
+  audio.src = '/TanksOnline/Sound/bang.mp3';
+  audio.autoplay = true; 
+}
+
 function NewObjectPosition()
 {
-     var TempDataCollision = m_pGameMain.CollisionMapaPosition(m_pGameMain.gl_.Obj_["tank"]["x"],
-         m_pGameMain.gl_.Obj_["tank"]["y"], m_pGameMain.gl_.Obj_["tank"]["z"], m_pGameMain.gl_.Obj_["tank"]["tx"],
-         m_pGameMain.gl_.Obj_["tank"]["ty"], m_pGameMain.gl_.Obj_["tank"]["tz"]);
+    var TempDataCollision = m_pGameMain.CollisionMapaPosition(m_pGameMain.gl_.Obj_["tank"]["x"],
+                     m_pGameMain.gl_.Obj_["tank"]["y"], m_pGameMain.gl_.Obj_["tank"]["z"], m_pGameMain.gl_.Obj_["tank"]["tx"],
+                     m_pGameMain.gl_.Obj_["tank"]["ty"], m_pGameMain.gl_.Obj_["tank"]["tz"]);
+        
         
         m_pGameMain.gl_.Obj_["tank"]["y"] = TempDataCollision["PosY"];
         m_pGameMain.gl_.Obj_["tank"]["tz"] = TempDataCollision["PosTZ"];
         m_pGameMain.gl_.Obj_["tank"]["tx"] = TempDataCollision["PosTX"];
         
-         var TempDataCollision1 = m_pGameMain.CollisionObjectsPosition(m_pGameMain.gl_.Obj_["tank"]["x"],
-         m_pGameMain.gl_.Obj_["tank"]["y"], m_pGameMain.gl_.Obj_["tank"]["z"], m_pGameMain.gl_.Obj_["tank"]["tx"],
-         m_pGameMain.gl_.Obj_["tank"]["ty"], m_pGameMain.gl_.Obj_["tank"]["tz"]);
+        
+    var TempDataCollision1 = m_pGameMain.CollisionObjectsPosition(m_pGameMain.gl_.Obj_["tank"]["x"],
+                        m_pGameMain.gl_.Obj_["tank"]["y"], m_pGameMain.gl_.Obj_["tank"]["z"], m_pGameMain.gl_.Obj_["tank"]["tx"],
+                        m_pGameMain.gl_.Obj_["tank"]["ty"], m_pGameMain.gl_.Obj_["tank"]["tz"]);
+        
+        
         
         m_pGameMain.gl_.Obj_["tank"]["x"] = TempDataCollision1["PosX"];
         m_pGameMain.gl_.Obj_["tank"]["z"] = TempDataCollision1["PosZ"];      
         
         m_pGameMain.gl_.Obj_["tower"]["x"] = m_pGameMain.gl_.Obj_["tank"]["x"] + m_pGameMain.gl_.Obj_["tower"]["addx"];
         m_pGameMain.gl_.Obj_["tower"]["y"] = m_pGameMain.gl_.Obj_["tank"]["y"] + m_pGameMain.gl_.Obj_["tower"]["addy"];
-        m_pGameMain.gl_.Obj_["tower"]["z"] = m_pGameMain.gl_.Obj_["tank"]["z"] + m_pGameMain.gl_.Obj_["tower"]["addz"];
-        //m_pGameMain.gl_.Obj_["tower"]["tx"] = m_pGameMain.gl_.Obj_["tank"]["tx"] + m_pGameMain.gl_.Obj_["tower"]["addtx"];
-        m_pGameMain.gl_.Obj_["tower"]["ty"] = m_pGameMain.gl_.Obj_["tank"]["ty"] + m_pGameMain.gl_.Obj_["tower"]["addty"];
-        //m_pGameMain.gl_.Obj_["tower"]["tz"] = m_pGameMain.gl_.Obj_["tank"]["tz"] + m_pGameMain.gl_.Obj_["tower"]["addtz"];
+        m_pGameMain.gl_.Obj_["tower"]["z"] = m_pGameMain.gl_.Obj_["tank"]["z"] + m_pGameMain.gl_.Obj_["tower"]["addz"];      
+        m_pGameMain.gl_.Obj_["tower"]["ty"] = m_pGameMain.gl_.Obj_["tank"]["ty"] + m_pGameMain.gl_.Obj_["tower"]["addty"];      
         
-         TempDataCollision = m_pGameMain.CollisionMapaPosition(m_pGameMain.gl_.Obj_["tower"]["x"],
-         m_pGameMain.gl_.Obj_["tower"]["y"], m_pGameMain.gl_.Obj_["tower"]["z"], m_pGameMain.gl_.Obj_["tower"]["tx"],
-         m_pGameMain.gl_.Obj_["tower"]["ty"], m_pGameMain.gl_.Obj_["tower"]["tz"]);
+        
+    TempDataCollision = m_pGameMain.CollisionMapaPosition(m_pGameMain.gl_.Obj_["tower"]["x"],
+                    m_pGameMain.gl_.Obj_["tower"]["y"], m_pGameMain.gl_.Obj_["tower"]["z"], m_pGameMain.gl_.Obj_["tower"]["tx"],
+                    m_pGameMain.gl_.Obj_["tower"]["ty"], m_pGameMain.gl_.Obj_["tower"]["tz"]);
          
         m_pGameMain.gl_.Obj_["tower"]["y"] = TempDataCollision["PosY"] + m_pGameMain.gl_.Obj_["tower"]["addy"];
         m_pGameMain.gl_.Obj_["tower"]["tz"] = TempDataCollision["PosTZ"];
@@ -36,35 +54,35 @@ function NewObjectPosition()
         m_pGameMain.gl_.Obj_["trunk"]["x"] = m_pGameMain.gl_.Obj_["tank"]["x"] + m_pGameMain.gl_.Obj_["trunk"]["addx"];
         m_pGameMain.gl_.Obj_["trunk"]["y"] = m_pGameMain.gl_.Obj_["tank"]["y"] + m_pGameMain.gl_.Obj_["trunk"]["addy"];
         m_pGameMain.gl_.Obj_["trunk"]["z"] = m_pGameMain.gl_.Obj_["tank"]["z"] + m_pGameMain.gl_.Obj_["trunk"]["addz"];
-        //m_pGameMain.gl_.Obj_["trunk"]["tx"] = m_pGameMain.gl_.Obj_["tank"]["tx"] + m_pGameMain.gl_.Obj_["trunk"]["addtx"];
         m_pGameMain.gl_.Obj_["trunk"]["ty"] = m_pGameMain.gl_.Obj_["tank"]["ty"] + m_pGameMain.gl_.Obj_["trunk"]["addty"];
-        //m_pGameMain.gl_.Obj_["trunk"]["tz"] = m_pGameMain.gl_.Obj_["tank"]["tz"] + m_pGameMain.gl_.Obj_["trunk"]["addtz"];
         
-         TempDataCollision = m_pGameMain.CollisionMapaPosition(m_pGameMain.gl_.Obj_["trunk"]["x"],
-         m_pGameMain.gl_.Obj_["trunk"]["y"], m_pGameMain.gl_.Obj_["trunk"]["z"], m_pGameMain.gl_.Obj_["trunk"]["tx"],
-         m_pGameMain.gl_.Obj_["trunk"]["ty"], m_pGameMain.gl_.Obj_["trunk"]["tz"]);
+        
+        
+    TempDataCollision = m_pGameMain.CollisionMapaPosition(m_pGameMain.gl_.Obj_["trunk"]["x"],
+                m_pGameMain.gl_.Obj_["trunk"]["y"], m_pGameMain.gl_.Obj_["trunk"]["z"], m_pGameMain.gl_.Obj_["trunk"]["tx"],
+                m_pGameMain.gl_.Obj_["trunk"]["ty"], m_pGameMain.gl_.Obj_["trunk"]["tz"]);
+         
+         
          
         m_pGameMain.gl_.Obj_["trunk"]["y"] = TempDataCollision["PosY"] + m_pGameMain.gl_.Obj_["trunk"]["addy"];
         m_pGameMain.gl_.Obj_["trunk"]["tz"] = TempDataCollision["PosTZ"];
         m_pGameMain.gl_.Obj_["trunk"]["tx"] = TempDataCollision["PosTX"] + m_pGameMain.gl_.Obj_["trunk"]["addtx"];
         
-        
-        
-        
-        
-               
-               
+                                                              
         var ResLPosZ = (Math.sin(ugol) * Math.cos(ugol2));
         var ResLPosX = -((Math.sin(ugol) * Math.sin(ugol2)));
-            
-        //alert(ResCamPosTy);
-        var CamDataRes = m_pGameMain.CollisionPosObjectCamera(ResPosCamX, ResPosCamY, ResPosCamZ, ResLPosX, ResLPosZ, 
-        m_pGameMain.gl_.Obj_["tank"]["x"], m_pGameMain.gl_.Obj_["tank"]["y"], m_pGameMain.gl_.Obj_["tank"]["z"]);        
+           
+    
+    var CamDataRes = m_pGameMain.CollisionPosObjectCamera(ResPosCamX, ResPosCamY, ResPosCamZ, ResLPosX, ResLPosZ, 
+                m_pGameMain.gl_.Obj_["tank"]["x"], m_pGameMain.gl_.Obj_["tank"]["y"], m_pGameMain.gl_.Obj_["tank"]["z"]);        
+        
         
         ResPosCamX = CamDataRes["PosX"];
         ResPosCamZ = CamDataRes["PosZ"];
         
-        var CamRes = m_pGameMain.CollisionPosCamera(m_pGameMain.gl_.Obj_["tank"]["x"] + ResPosCamX, m_pGameMain.gl_.Obj_["tank"]["y"] + ResPosCamY, m_pGameMain.gl_.Obj_["tank"]["z"] + ResPosCamZ);        
+        
+    var CamRes = m_pGameMain.CollisionPosCamera(m_pGameMain.gl_.Obj_["tank"]["x"] + ResPosCamX, m_pGameMain.gl_.Obj_["tank"]["y"] + ResPosCamY, m_pGameMain.gl_.Obj_["tank"]["z"] + ResPosCamZ);        
+        
         
         if(CamRes > m_pGameMain.gl_.Obj_["tank"]["y"] + ResPosCamY){
             
@@ -74,84 +92,137 @@ function NewObjectPosition()
         
 }
 
-function handleKeyDown(e){
+function handleKeyUp(e){
     
     if(m_pGameMain.BlocMove){
-    //alert(ResDate);
+
         switch(e.keyCode)
         {
             case 65: 
                 
                 if ($("#idInputChat").css('display') == 'none') { 
-                
-                    m_pGameMain.gl_.Obj_["tank"]["ty"] += 0.05 * (ResDate + 2);
-               
+                      
+                   KeyA = false;
+                      
+                   AudioPaix.play(); 
+                   AudioMove.pause();
+                   AudioMove.autoplay = false;
+                  
                 }
                 break;
             case 68:  
                 
                 if ($("#idInputChat").css('display') == 'none') { 
-                
-                    m_pGameMain.gl_.Obj_["tank"]["ty"] -= 0.05 * (ResDate + 2);
-             
+                    
+                   KeyD = false; 
+                   
+                   AudioPaix.play(); 
+                   AudioMove.pause();
+                   AudioMove.autoplay = false;
+                  
                 }
                 break;
-            case 87:  
+            case 87:                 
                 
                 if ($("#idInputChat").css('display') == 'none') { 
-                
-                     m_pGameMain.gl_.Obj_["tank"]["z"] += Math.cos(m_pGameMain.gl_.Obj_["tank"]["ty"]) * 0.3 * (ResDate + 2);
-                     m_pGameMain.gl_.Obj_["tank"]["x"] += Math.sin(m_pGameMain.gl_.Obj_["tank"]["ty"]) * 0.3 * (ResDate + 2);
-               
+                    
+                   KeyW = false;
+                    
+                   AudioPaix.play(); 
+                   AudioMove.pause();
+                   AudioMove.autoplay = false;
+                   
                 }
                 break;
             case 83: 
                 
                 if ($("#idInputChat").css('display') == 'none') { 
                 
-                    m_pGameMain.gl_.Obj_["tank"]["z"] -= Math.cos(m_pGameMain.gl_.Obj_["tank"]["ty"]) * 0.3 * (ResDate + 2);
-                    m_pGameMain.gl_.Obj_["tank"]["x"] -= Math.sin(m_pGameMain.gl_.Obj_["tank"]["ty"]) * 0.3 * (ResDate + 2);
-               
+                    KeyS = false;
+                
+                    AudioPaix.play(); 
+                    AudioMove.pause();
+                    AudioMove.autoplay = false;
+                   
                 }
                 break;
             case 81:
                 
                 if ($("#idInputChat").css('display') == 'none') { 
-                
-                    m_pGameMain.gl_.Obj_["tower"]["addty"] += 0.05 * (ResDate + 2);
-                    m_pGameMain.gl_.Obj_["trunk"]["addty"] = m_pGameMain.gl_.Obj_["tower"]["addty"];
-                
+                    
+                    KeyQ = false;
+                    
+                    AudioTower.pause();
+                    AudioTower.autoplay = false;
+                   
                 }
                 break;
             case 69:
                 
                 if ($("#idInputChat").css('display') == 'none') { 
                 
-                    m_pGameMain.gl_.Obj_["tower"]["addty"] -= 0.05 * (ResDate + 2);
-                    m_pGameMain.gl_.Obj_["trunk"]["addty"] = m_pGameMain.gl_.Obj_["tower"]["addty"];
+                    KeyE = false;
                 
+                    AudioTower.pause();
+                    AudioTower.autoplay = false;
+                  
                 }
                 break;
             case 82:
                 
                 if ($("#idInputChat").css('display') == 'none') { 
-                
-                    if(m_pGameMain.gl_.Obj_["trunk"]["addtx"] > -0.5){
-                        m_pGameMain.gl_.Obj_["trunk"]["addtx"] -= 0.02 * (ResDate + 2);
-                    }
+                    
+                    KeyR = false;
+                    
+                    AudioTower.pause();
+                    AudioTower.autoplay = false;
                 
                 }
                 break;
             case 70:
                 
                 if ($("#idInputChat").css('display') == 'none') { 
-                
-                    if(m_pGameMain.gl_.Obj_["trunk"]["addtx"] < 0){
-                        m_pGameMain.gl_.Obj_["trunk"]["addtx"] += 0.02 * (ResDate + 2);
-                    }
+                    
+                    KeyF = false;
+                    
+                    AudioTower.pause();
+                    AudioTower.autoplay = false;
                 
                 }
                 break;    
+            
+        }
+             
+        
+        }
+    
+    
+}
+
+var KeyW = false;
+var KeyS = false;
+var KeyA = false;
+var KeyD = false;
+var KeyQ = false;
+var KeyE = false;
+var KeyR = false;
+var KeyF = false;
+
+function handleKeyDown(e){
+    
+    if(m_pGameMain.BlocMove){
+
+        if (e.keyCode == 87){ KeyW = true; }
+        if (e.keyCode == 83){ KeyS = true; }
+        if (e.keyCode == 65){ KeyA = true; }
+        if (e.keyCode == 68){ KeyD = true; }
+        if (e.keyCode == 81){ KeyQ = true; }
+        if (e.keyCode == 69){ KeyE = true; }
+        if (e.keyCode == 82){ KeyR = true; }
+        if (e.keyCode == 70){ KeyF = true; }
+
+        switch(e.keyCode)
+        {
             case 13:
                 
                 if ($("#idInputChat").css('display') == 'none') {                   
@@ -160,18 +231,163 @@ function handleKeyDown(e){
                 } else {
                     
                     DataTextChat();
-                    //$("#idInputChat").hide();
+                   
                 }
                 
-                break;   
+            break;              
+            
         }
-       
-       NewObjectPosition();
+      
+      
+    }
+}
+    
+function InputKey(){
+    
+     if(KeyA){
+        
+                if ($("#idInputChat").css('display') == 'none') { 
+                           
+                    if(AudioMove.autoplay != true ){ 
+                         AudioPaix.autoplay = true;
+                         AudioMove.src = '/TanksOnline/Sound/dv.mp3';
+                         AudioMove.loop = true;
+                         AudioMove.autoplay = true; 
+                         AudioPaix.pause();
+                    }
+                
+                    m_pGameMain.gl_.Obj_["tank"]["ty"] += 0.005 * (ResDate + 2);
+               
+                }
+            }   
+             
+            if(KeyD){ 
+            
+                if ($("#idInputChat").css('display') == 'none') { 
+                         
+                    if(AudioMove.autoplay != true ){ 
+                         AudioPaix.autoplay = true;
+                         AudioMove.src = '/TanksOnline/Sound/dv.mp3';
+                         AudioMove.loop = true;
+                         AudioMove.autoplay = true; 
+                         AudioPaix.pause();
+                    }
+                
+                    m_pGameMain.gl_.Obj_["tank"]["ty"] -= 0.005 * (ResDate + 2);
+             
+                }
+            }
+            
+            if(KeyW){
+               
+                if ($("#idInputChat").css('display') == 'none') { 
+                    
+                    if(AudioMove.autoplay != true ){ 
+                         AudioPaix.autoplay = true;
+                         AudioMove.src = '/TanksOnline/Sound/dv.mp3';
+                         AudioMove.loop = true;
+                         AudioMove.autoplay = true; 
+                         AudioPaix.pause();
+                    }
+                    
+                     m_pGameMain.gl_.Obj_["tank"]["z"] += Math.cos(m_pGameMain.gl_.Obj_["tank"]["ty"]) * 0.06 * (ResDate + 2);
+                     m_pGameMain.gl_.Obj_["tank"]["x"] += Math.sin(m_pGameMain.gl_.Obj_["tank"]["ty"]) * 0.06 * (ResDate + 2);
+               
+                }
+              
+            }  
+            
+            if(KeyS){
+                
+                if ($("#idInputChat").css('display') == 'none') { 
+                
+                    if(AudioMove.autoplay != true ){ 
+                         AudioPaix.autoplay = true;
+                         AudioMove.src = '/TanksOnline/Sound/dv.mp3';
+                         AudioMove.loop = true;
+                         AudioMove.autoplay = true; 
+                         AudioPaix.pause();
+                    }
+                
+                    m_pGameMain.gl_.Obj_["tank"]["z"] -= Math.cos(m_pGameMain.gl_.Obj_["tank"]["ty"]) * 0.06 * (ResDate + 2);
+                    m_pGameMain.gl_.Obj_["tank"]["x"] -= Math.sin(m_pGameMain.gl_.Obj_["tank"]["ty"]) * 0.06 * (ResDate + 2);
+               
+                }
+               
+            }   
+                
+            if(KeyQ){   
+                
+                if ($("#idInputChat").css('display') == 'none') { 
+                    
+                    if(AudioTower.autoplay != true ){
+                        AudioTower.src = '/TanksOnline/Sound/bh.mp3';
+                        AudioTower.autoplay = true;
+                    }
+                
+                    m_pGameMain.gl_.Obj_["tower"]["addty"] += 0.005 * (ResDate + 2);
+                    m_pGameMain.gl_.Obj_["trunk"]["addty"] = m_pGameMain.gl_.Obj_["tower"]["addty"];
+                
+                }
+               
+            }   
+               
+            if(KeyE){   
+        
+                if ($("#idInputChat").css('display') == 'none') { 
+                    
+                    if(AudioTower.autoplay != true ){
+                        AudioTower.src = '/TanksOnline/Sound/bh.mp3';
+                        AudioTower.autoplay = true;
+                    }
+                
+                    m_pGameMain.gl_.Obj_["tower"]["addty"] -= 0.005 * (ResDate + 2);
+                    m_pGameMain.gl_.Obj_["trunk"]["addty"] = m_pGameMain.gl_.Obj_["tower"]["addty"];
+                
+                }
+               
+            }   
+            
+            if(KeyR){
+                
+                if ($("#idInputChat").css('display') == 'none') { 
+                    
+                    if(AudioTower.autoplay != true ){
+                        AudioTower.src = '/TanksOnline/Sound/bh.mp3';
+                        AudioTower.autoplay = true;
+                    }
+                
+                    if(m_pGameMain.gl_.Obj_["trunk"]["addtx"] > -0.5){
+                        m_pGameMain.gl_.Obj_["trunk"]["addtx"] -= 0.002 * (ResDate + 2);
+                    }
+                
+                }
+              
+            }  
+            
+            if(KeyF){
+                
+                if ($("#idInputChat").css('display') == 'none') { 
+                    
+                    if(AudioTower.autoplay != true ){
+                        AudioTower.src = '/TanksOnline/Sound/bh.mp3';
+                        AudioTower.autoplay = true;
+                    }
+                
+                    if(m_pGameMain.gl_.Obj_["trunk"]["addtx"] < 0){
+                        m_pGameMain.gl_.Obj_["trunk"]["addtx"] += 0.002 * (ResDate + 2);
+                    }
+                
+                }
+               
+            }   
+            
+        NewObjectPosition();
        
         MoveUser();  
-        
-        }
-    }
+    
+}
+    
        
     var tempX = 0;
     var tempY = 0;
@@ -187,7 +403,7 @@ function handleKeyDown(e){
        if (e.clientY > tempY){
 			
                 if (ugol >= 0.3){
-                        ugol += 0.01 * (ResDate + 2);//e.clientY - tempY;
+                        ugol += 0.01 * (ResDate + 2);
                         if (ugol < 0.3){ ugol = 0.3; }
                         if (ugol > 3.0){ ugol = 3.0; }
                         ResPosCamZ = (-MouseRadius * Math.sin(ugol) * Math.cos(ugol2));
@@ -202,7 +418,7 @@ function handleKeyDown(e){
 	if (e.clientY < tempY){
 			
                 if (ugol <= 3.0){
-                            ugol -= 0.01 * (ResDate + 2);// e.clientY - tempY;
+                            ugol -= 0.01 * (ResDate + 2);
                             if (ugol > 3.0){ ugol = 3.0; }
                             if (ugol < 0.3){ ugol = 0.3; }
                             ResPosCamZ = (-MouseRadius * Math.sin(ugol) * Math.cos(ugol2));
@@ -237,14 +453,17 @@ function handleKeyDown(e){
         var ResLPosZ = (Math.sin(ugol) * Math.cos(ugol2));
         var ResLPosX = -((Math.sin(ugol) * Math.sin(ugol2)));
             
-        //alert(ResCamPosTy);
-        var CamDataRes = m_pGameMain.CollisionPosObjectCamera(ResPosCamX, ResPosCamY, ResPosCamZ, ResLPosX, ResLPosZ, 
-        m_pGameMain.gl_.Obj_["tank"]["x"], m_pGameMain.gl_.Obj_["tank"]["y"], m_pGameMain.gl_.Obj_["tank"]["z"]);        
+            
+    var CamDataRes = m_pGameMain.CollisionPosObjectCamera(ResPosCamX, ResPosCamY, ResPosCamZ, ResLPosX, ResLPosZ, 
+                m_pGameMain.gl_.Obj_["tank"]["x"], m_pGameMain.gl_.Obj_["tank"]["y"], m_pGameMain.gl_.Obj_["tank"]["z"]);        
+        
         
         ResPosCamX = CamDataRes["PosX"];
         ResPosCamZ = CamDataRes["PosZ"];
         
-        var CamRes = m_pGameMain.CollisionPosCamera(m_pGameMain.gl_.Obj_["tank"]["x"] + ResPosCamX, m_pGameMain.gl_.Obj_["tank"]["y"] + ResPosCamY, m_pGameMain.gl_.Obj_["tank"]["z"] + ResPosCamZ);        
+        
+    var CamRes = m_pGameMain.CollisionPosCamera(m_pGameMain.gl_.Obj_["tank"]["x"] + ResPosCamX, m_pGameMain.gl_.Obj_["tank"]["y"] + ResPosCamY, m_pGameMain.gl_.Obj_["tank"]["z"] + ResPosCamZ);        
+        
         
         if(CamRes > m_pGameMain.gl_.Obj_["tank"]["y"] + ResPosCamY){
             
@@ -253,8 +472,9 @@ function handleKeyDown(e){
         }
         
         
-        }
     }
+    
+ }
     
     function ClicShot(){
         
@@ -294,9 +514,6 @@ function handleKeyDown(e){
 
 				var Radius1;
 
-
-
-
 				XCenter1 = m_pGameMain.gl_.Obj_["shar"]["x"];
 				YCenter1 = m_pGameMain.gl_.Obj_["shar"]["y"];
 				ZCenter1 = m_pGameMain.gl_.Obj_["shar"]["z"];
@@ -315,8 +532,7 @@ function handleKeyDown(e){
 
 				
 				if (Distance <= Radius1){
-					                                                                                
-                                        //alert(m_pGameMain.NameObjectUser[key]);
+					                                                                                                                     
 					ShotTrue(m_pGameMain.NameObjectUser[key]);
                                         
 					return;
@@ -353,9 +569,6 @@ function handleKeyDown(e){
 				var ZCenter2;
 
 				var Radius1;
-
-
-
 
 				XCenter1 = m_pGameMain.gl_.Obj_["shar"]["x"];
 				YCenter1 = m_pGameMain.gl_.Obj_["shar"]["y"];
@@ -416,7 +629,7 @@ function handleKeyDown(e){
                 m_pGameMain.gl_.Obj_["Bang"]["x"] += Math.sin(m_pGameMain.gl_.Obj_["tower"]["ty"]) * 4.5;
                 m_pGameMain.gl_.Obj_["Bang"]["y"] -= Math.sin(m_pGameMain.gl_.Obj_["trunk"]["tx"]) * 4.5;
 
-
+                     soundClick();
 
                      ClicShot();
                      

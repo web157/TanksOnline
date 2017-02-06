@@ -344,12 +344,7 @@ while(true){
                  
                  
                  if(isset($ArrD["DataShotTrue"])){
-                   
-                    //$Res = Pick($ArrD["PosX"], $ArrD["PosY"], $ArrD["PosZ"], $ArrD["PosTy"], $m_aUserData[$ArrD["IdSock"]]->PosX,
-                    //       $m_aUserData[$ArrD["IdSock"]]->PosY, $m_aUserData[$ArrD["IdSock"]]->PosZ, $m_aUserData[$ArrD["IdSock"]]->PosTy); 
-                     
-                    //if($Res){
-                       
+ 
                         $m_aUserData[$ArrD["IdSock"]]->Xp -= 1;
                         
                         if($m_aUserData[$ArrD["IdSock"]]->Xp == 0){
@@ -359,16 +354,7 @@ while(true){
                             $TempDataShot["DataShot"] = "DataShot";
                             
                             $TempThisDataShot["DataShot"] = "DataShot";
-                          //  $TempDataShot["ThisPositionObject"] = array();
-                        
-                          //  $tempRand = rand(0, 2);
-                            
-                          //  $TempDataShot["ThisPositionObject"]["PosX"] = $m_pNumberMapa[$m_aUserData[$sock]->NumberServer]->MapaPosition[$TempData1["NumberMapa"]][$tempRand]["PosX"];
-                          //  $TempDataShot["ThisPositionObject"]["PosY"] = $m_pNumberMapa[$m_aUserData[$sock]->NumberServer]->MapaPosition[$TempData1["NumberMapa"]][$tempRand]["PosY"]; 
-                           // $TempDataShot["ThisPositionObject"]["PosZ"] = $m_pNumberMapa[$m_aUserData[$sock]->NumberServer]->MapaPosition[$TempData1["NumberMapa"]][$tempRand]["PosZ"]; 
-                        
-                            
-                           // @socket_write($m_aUserData[$ArrD["IdSock"]]->ThisSocket,($sock_->encode(json_encode($TempDataShot))));
+                         
                             //////////////////////////////////////////////////////////////
                             foreach ($m_aUserData as $key=>$value) {                                            
                              
@@ -402,19 +388,10 @@ while(true){
                             
                             //////////////////////////////////////////////////////////////
                         }
-                        
-                    //}
+                                           
                      
                  }
                     
-                  //foreach ($m_aUserData as $key=>$value) {                                            
-                                           
-                   //   $DataTest["Test"] = true;
-                      
-                  //       @socket_write($sock_->cls[$key],($sock_->encode(json_encode($DataTest))));                                               
-                         
-                  //}  
-                  
                  
                  if(isset($ArrD["DataClicShot"])){
                         
