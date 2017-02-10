@@ -212,6 +212,8 @@ function handleKeyDown(e){
     
     if(m_pGameMain.BlocMove){
 
+    if ($("#idInputChat").css('display') == 'none') {
+
         if (e.keyCode == 87){ KeyW = true; }
         if (e.keyCode == 83){ KeyS = true; }
         if (e.keyCode == 65){ KeyA = true; }
@@ -220,6 +222,8 @@ function handleKeyDown(e){
         if (e.keyCode == 69){ KeyE = true; }
         if (e.keyCode == 82){ KeyR = true; }
         if (e.keyCode == 70){ KeyF = true; }
+
+    }
 
         switch(e.keyCode)
         {

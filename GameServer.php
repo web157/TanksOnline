@@ -100,7 +100,10 @@ while(true){
                    if(isset($ArrD["Authorization"])){
                        
                       $l_username = $ArrD["FormLog"];
-                      $l_password = md5($ArrD["FormPass"]); 
+                      $l_password = md5($ArrD["FormPass"]);
+                      
+                      $l_username = $ConnectDB->real_escape_string($l_username);
+                      $l_password = $ConnectDB->real_escape_string($l_password);
                       
                       $TempErrLogData = array();
                       

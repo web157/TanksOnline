@@ -16,7 +16,17 @@ class Router
                     
             $controllerName = 'Index';	
             $actionName = 'index';
-            $einnahmeUrl = explode('/', $_SERVER['REQUEST_URI']);       
+            $TempServer = filter_input(INPUT_SERVER, "REQUEST_URI");
+            
+            if(!$TempServer){
+                
+                include 'Project/Views/Site/404.php';
+                mysqli_close(Main_3D::$ConnectDB);
+                return;
+                        
+            }
+            
+            $einnahmeUrl = explode('/', $TempServer);       
               
                 if (!empty($einnahmeUrl[2])) 
 		{
@@ -56,8 +66,9 @@ class Router
 		}
 		else
 		{
-			//Здесь нужно добавить обработку ошибки.
-			//Например, перекинуть пользователя на страницу 404
+			include 'Project/Views/Site/404.php';
+                        mysqli_close(Main_3D::$ConnectDB);
+                        return;
 		}
                 
             $controller = new $controllerName;
@@ -68,7 +79,9 @@ class Router
 		}
 		else
 		{
-			//Здесь тоже нужно добавить обработку ошибок
+			include 'Project/Views/Site/404.php';
+                        mysqli_close(Main_3D::$ConnectDB);
+                        return;
 		}
             
                 
