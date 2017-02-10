@@ -12,14 +12,29 @@ class Controller_Index extends Controller {
 	}
         
         public function action_index()
-        {          
+        {   
+            session_start();
+            
             View::$layouts = "Main.php";                  
             
             $this->view->render("Index.php");           
         }
            
         public function action_pageregistration()
-        {          
+        {    
+            session_start();
+            
+            if (!empty($_SESSION['login']))
+            {
+                View::$layouts = "Main.php";                  
+            
+                $data = "Вы уже авторизованны";
+                
+                $this->view->render("PageError.php", $data);
+                
+                return;
+            }
+            
             View::$layouts = "Main.php";                  
             
             $this->view->render("Registration.php");           
@@ -27,46 +42,99 @@ class Controller_Index extends Controller {
         
         public function action_registration()
         {          
+            session_start();
+            
+            if (!empty($_SESSION['login']))
+            {
+                View::$layouts = "Main.php";                  
+            
+                $data = "Вы уже авторизованны";
+                
+                $this->view->render("PageError.php", $data);
+                
+                return;
+            }
+            
             View::$layouts = "Main.php";                  
             
-            if($this->ClassModels->registration()){
+            $Result = $this->ClassModels->registration();
+            
+            if($Result["result"]){
                 
                 $this->view->render("Index.php");
                 
             }else{
                 
-                $this->view->render("Registration.php"); 
+                $this->view->render("Registration.php", $Result["data"]); 
                  
             }
                                  
         }
         
         public function action_inspectionlogin()
+        {          
+             session_start();
+             
+            if (!empty($_SESSION['login']))
+            {
+                View::$layouts = "Main.php";                  
+            
+                $data = "Вы уже авторизованны";
+                
+                $this->view->render("PageError.php", $data);
+                
+                return;
+            }
+            
+             View::$layouts = "Main.php";
+             
+             $data = array();
+             
+             $Result = $this->ClassModels->inspectionlogin();
+              
+             if($Result["result"]){
+                
+                $this->view->render("InspectionLogin.php");
+                
+            }else{
+                
+                $data["LoginError"] = $Result["data"];
+                
+                $this->view->render("InspectionLogin.php", $data); 
+                 
+            }
+              
+              
+        }
+        
+        public function action_outcabinetuser()
         {
-              View::$layouts = "Main.php";
+             View::$layouts = "Main.php";
              
-             $l_username;
-             $l_password;
-             $l_send;
+             session_start();
              
-             if(isset($_POST["l_username"])){ $l_username = $_POST["l_username"]; }
-             if(isset($_POST["l_password"])){ $l_password = md5($_POST["l_password"]); }
-             if(isset($_POST["l_send"])){ $l_send = $_POST["l_send"]; }
+             session_destroy();
+                         
+             $this->view->render("OutCabinetUser.php");
+        }
+        
+        public function action_cabinetuser()
+        {                         
+             session_start();
              
-             if(isset($l_send)){
-                 
-                 $result_set = Main_3D::$ConnectDB->query(" SELECT * FROM usertbl WHERE username = '$l_username' AND password = '$l_password'");
-                 
-                 if($result_set->fetch_row() < 1){
-                   $this->view->render("Registration.php");
-                 }else{                    
-                     session_start();
-                     $_SESSION['login'] = "admin";
-                     $this->view->render("Index.php");
-                 }
-                 
-             }
-             
+             if (empty($_SESSION['login']))
+            {
+                View::$layouts = "Main.php";                  
+            
+                $data = "Вы не авторизованны";
+                
+                $this->view->render("PageError.php", $data);
+                
+                return;
+            }
+             View::$layouts = "Main.php";
+            
+             $this->view->render("CabinetUser.php");
         }
         
 }

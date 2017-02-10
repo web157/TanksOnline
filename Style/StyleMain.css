@@ -27,6 +27,29 @@ header{
    background:darkorange; 
 }
 
+#idHome{
+    width: 100px;
+    height: 100%;
+    float: left;
+    text-align: center;
+    background:dodgerblue;
+    cursor: pointer;
+}
+
+#idCabinet{
+    width: 100px;
+    height: 100%;
+    float: left;
+    text-align: center;
+    background:dodgerblue;
+    cursor: pointer;
+}
+
+.classTextMenu{
+     position:relative;
+     top:15px;
+}
+
 #idLeftMenu{
     width: 18%;
     height: 600px;
@@ -85,6 +108,10 @@ footer{
     height: 200px;
     float: left;
     background:darkcyan;
+}
+
+#idMainTextErr{
+    color:red;
 }
 
 @media screen and (max-width: 768px){
